@@ -25,6 +25,15 @@ namespace Entity
 
         }
 
+        public Cuota_Social(string soc_cod, char ani, char ms, decimal mon_cuo, char pag)
+        {
+            socio_cod = soc_cod;
+            anio = ani;
+            mes = ms;
+            monto_cuota = mon_cuo;
+            pagada = pag;
+        }
+
         #endregion
 
         #region Propiedades
