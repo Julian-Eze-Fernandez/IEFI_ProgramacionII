@@ -16,5 +16,14 @@ namespace IEFIPrgII
         {
             InitializeComponent();
         }
+
+        private void FormSocios_Load(object sender, EventArgs e)
+        {
+            // TODO: esta línea de código carga datos en la tabla 'iEFIPrgDataSet1.provincias' Puede moverla o quitarla según sea necesario.
+            this.provinciasTableAdapter.Fill(this.iEFIPrgDataSet1.provincias);
+            // TODO: esta línea de código carga datos en la tabla 'iEFIPrgDataSet.sexos' Puede moverla o quitarla según sea necesario.
+            this.sexosTableAdapter.Fill(this.iEFIPrgDataSet.sexos);
+
+        }
     }
 }

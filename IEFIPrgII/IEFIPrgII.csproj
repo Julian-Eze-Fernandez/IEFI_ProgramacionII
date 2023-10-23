@@ -52,6 +52,16 @@
     <Compile Include="FormSocios.Designer.cs">
       <DependentUpon>FormSocios.cs</DependentUpon>
     </Compile>
+    <Compile Include="IEFIPrgDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IEFIPrgDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="IEFIPrgDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IEFIPrgDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormSocios.resx">
@@ -66,6 +76,28 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="IEFIPrgDataSet.xsc">
+      <DependentUpon>IEFIPrgDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="IEFIPrgDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IEFIPrgDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="IEFIPrgDataSet.xss">
+      <DependentUpon>IEFIPrgDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="IEFIPrgDataSet1.xsc">
+      <DependentUpon>IEFIPrgDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="IEFIPrgDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IEFIPrgDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="IEFIPrgDataSet1.xss">
+      <DependentUpon>IEFIPrgDataSet1.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
