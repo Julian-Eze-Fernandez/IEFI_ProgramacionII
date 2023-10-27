@@ -76,8 +76,10 @@ namespace IEFIPrgII
             dgv_CuotasSociales.Columns[4].Width = 100;
 
         }
+        
 
-        private void LLenarDGVSocios() 
+        //Socios
+        private void LLenarDGVSocios()
         {
             dgv_Socios.Rows.Clear();
 
@@ -95,26 +97,6 @@ namespace IEFIPrgII
             else
                 MessageBox.Show("No hay Socios cargados en el sistema.");
         }
-
-        private void LLenarDGVCuotasSociales()
-        {
-            dgv_CuotasSociales.Rows.Clear();
-
-            DataSet ds = new DataSet();
-            ds = objNegCuotaSocial.listadoCuotas_Sociales("Todos");
-
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    //Lo que quieres mostrar esta en dr[0].ToString(), dr[1].ToString(),etc...
-                    dgv_CuotasSociales.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
-                }
-            }
-            else
-                MessageBox.Show("No hay Cuotas Sociales cargadas en el sistema.");
-        }
-
         private void btn_CargarSocio_Click(object sender, EventArgs e)
         {
             Socio NuevoSocio = new Socio(txt_SocioCod.Text,txt_NombreSoc.Text,txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
@@ -132,6 +114,27 @@ namespace IEFIPrgII
         private void btn_BorrarSocio_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        //Cuotas Sociales
+        private void LLenarDGVCuotasSociales()
+        {
+            dgv_CuotasSociales.Rows.Clear();
+
+            DataSet ds = new DataSet();
+            ds = objNegCuotaSocial.listadoCuotas_Sociales("Todos");
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    //Lo que quieres mostrar esta en dr[0].ToString(), dr[1].ToString(),etc...
+                    dgv_CuotasSociales.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
+                }
+            }
+            else
+                MessageBox.Show("No hay Cuotas Sociales cargadas en el sistema.");
         }
 
         private void btn_CargarCuota_Click(object sender, EventArgs e)

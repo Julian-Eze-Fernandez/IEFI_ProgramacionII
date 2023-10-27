@@ -185,6 +185,7 @@
             // 
             // cmbbox_BarrCod
             // 
+            this.cmbbox_BarrCod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbbox_BarrCod.FormattingEnabled = true;
             this.cmbbox_BarrCod.Location = new System.Drawing.Point(162, 79);
             this.cmbbox_BarrCod.Name = "cmbbox_BarrCod";
@@ -238,6 +239,7 @@
             // 
             // cmbBox_Sexo
             // 
+            this.cmbBox_Sexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBox_Sexo.FormattingEnabled = true;
             this.cmbBox_Sexo.Location = new System.Drawing.Point(162, 33);
             this.cmbBox_Sexo.Name = "cmbBox_Sexo";
