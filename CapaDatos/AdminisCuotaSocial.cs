@@ -6,28 +6,27 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using Entity;
-using System.Data.OleDb;
 
 namespace CapaDatos
 {
-    public class AdminisSocio : DatosConexion
+    public class AdminisCuotaSocial : DatosConexion
     {
-        public int abmSocios(string accion, Socio objSocio)
+        public int abmCuotas_Sociales(string accion, Cuota_Social objCuota_Social)
         {
             int resultado = -1;  // controlar que se realize la operacion con exito
             string orden = string.Empty; // para guardar consulta sql
 
             if (accion == "Alta") // para agregar un producto nuevo
             {
-                orden = $"insert into socios (Socio_Cod, Nombre, Apellido, Sexo_Cod, Domicilio, Barr_Cod, Monto_Mes, Fecha_Alta, Fecha_Baja, Activo) values ('{objSocio.Socio_Cod}', '{objSocio.Nombre}', '{objSocio.Apellido}', '{objSocio.Sexo_Cod}', '{objSocio.Domicilio}' , '{objSocio.Barr_Cod}', {objSocio.Monto_Mes}, '{objSocio.Fecha_Alta}','{objSocio.Fecha_Baja}','{objSocio.Activo}' );";
+                orden = $"insert into cuotas_sociales (Socio_Cod, Anio, Mes, Monto_Cuota, Pagada) values ('{objCuota_Social.Socio_Cod}', '{objCuota_Social.Anio}', '{objCuota_Social.Mes}', '{objCuota_Social.Monto_Cuota}', '{objCuota_Social.Pagada}');";
             }
 
             if (accion == "Modificar") // para modificar un existente
-                orden = $"update socios set Nombre='{objSocio.Nombre}', Apellido='{objSocio.Apellido}', Sexo_Cod='{objSocio.Sexo_Cod}', Domicilio='{objSocio.Domicilio}', Barr_Cod='{objSocio.Barr_Cod}', Monto_Mes={objSocio.Monto_Mes}, Fecha_Alta='{objSocio.Fecha_Alta}', Fecha_Baja='{objSocio.Fecha_Baja}', Activo='{objSocio.Activo}' WHERE socio_cod like '%{objSocio.Socio_Cod}%';";
+                orden = $"update cuotas_sociales set Anio='{objCuota_Social.Anio}', Mes='{objCuota_Social.Mes}', Monto_Cuota='{objCuota_Social.Monto_Cuota}', Pagada='{objCuota_Social.Pagada}' WHERE socio_cod like '%{objCuota_Social.Socio_Cod}%';";
 
 
             if (accion == "Borrar") // para borrar un existente
-                orden = "delete * from socios where Socio_Cod =" + objSocio.Socio_Cod + ";";
+                orden = "delete * from cuotas_sociales where Socio_Cod =" + objCuota_Social.Socio_Cod + ";";
 
 
             SqlCommand cmd = new SqlCommand(orden, conexion);
@@ -38,7 +37,7 @@ namespace CapaDatos
             }
             catch (Exception e)
             {
-                throw new Exception($"Errror al tratar de guardar, borrar o modificar algun socio.", e);
+                throw new Exception($"Errror al tratar de guardar, borrar o modificar una cuota social.", e);
             }
             finally
             {
@@ -48,14 +47,14 @@ namespace CapaDatos
             return resultado;
         }
 
-        public DataSet listadoSocios(string cual)
+        public DataSet listadoCuotas_Sociales(string cual)
         {
             string orden = string.Empty;
 
             if (cual != "Todos")
-                orden = "select * from socios where Socio_Cod = " + int.Parse(cual) + ";";
+                orden = "select * from cuotas_sociales where Socio_Cod = " + int.Parse(cual) + ";";
             else
-                orden = "select * from socios;";
+                orden = "select * from cuotas_sociales;";
 
             SqlCommand cmd = new SqlCommand(orden, conexion);
 
@@ -70,7 +69,7 @@ namespace CapaDatos
             }
             catch (Exception e)
             {
-                throw new Exception("Error al listar socios", e);
+                throw new Exception("Error al listar cuotas sociales", e);
             }
             finally
             {

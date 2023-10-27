@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PagSocios = new System.Windows.Forms.TabPage();
+            this.DateTimePick_FecBaj = new System.Windows.Forms.DateTimePicker();
+            this.DateTimePick_FecAlt = new System.Windows.Forms.DateTimePicker();
+            this.cmbbox_BarrCod = new System.Windows.Forms.ComboBox();
             this.btn_BorrarSocio = new System.Windows.Forms.Button();
             this.btn_ModificarSocio = new System.Windows.Forms.Button();
             this.btn_CargarSocio = new System.Windows.Forms.Button();
@@ -76,14 +79,14 @@
             this.txt_BarrCod = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.dgv_Barrios = new System.Windows.Forms.DataGridView();
+            this.barriosBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iEFIPrgDataSet2 = new IEFIPrgII.IEFIPrgDataSet2();
             this.PagProvincias = new System.Windows.Forms.TabPage();
             this.txt_ProvNombre = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txt_CodProv = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.dgv_Provincias = new System.Windows.Forms.DataGridView();
-            this.provcodDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.provnombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.provinciasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iEFIPrgDataSet1 = new IEFIPrgII.IEFIPrgDataSet1();
             this.btn_BorrarProvincias = new System.Windows.Forms.Button();
@@ -91,21 +94,13 @@
             this.btn_CargarProvincias = new System.Windows.Forms.Button();
             this.PagSexos = new System.Windows.Forms.TabPage();
             this.dgv_Sexos = new System.Windows.Forms.DataGridView();
-            this.sexocodDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sexoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sexosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iEFIPrgDataSet = new IEFIPrgII.IEFIPrgDataSet();
             this.sexosTableAdapter = new IEFIPrgII.IEFIPrgDataSetTableAdapters.sexosTableAdapter();
             this.provinciasTableAdapter = new IEFIPrgII.IEFIPrgDataSet1TableAdapters.provinciasTableAdapter();
-            this.iEFIPrgDataSet2 = new IEFIPrgII.IEFIPrgDataSet2();
-            this.barriosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.barriosTableAdapter = new IEFIPrgII.IEFIPrgDataSet2TableAdapters.barriosTableAdapter();
-            this.barrcodDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.barrnombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.provcodDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmbbox_BarrCod = new System.Windows.Forms.ComboBox();
-            this.DateTimePick_FecAlt = new System.Windows.Forms.DateTimePicker();
-            this.DateTimePick_FecBaj = new System.Windows.Forms.DateTimePicker();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.PagSocios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Socios)).BeginInit();
@@ -113,6 +108,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CuotasSociales)).BeginInit();
             this.PagBarrios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Barrios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).BeginInit();
             this.PagProvincias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.provinciasBindingSource)).BeginInit();
@@ -121,8 +118,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Sexos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sexosBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -140,6 +135,8 @@
             // 
             // PagSocios
             // 
+            this.PagSocios.Controls.Add(this.textBox1);
+            this.PagSocios.Controls.Add(this.label20);
             this.PagSocios.Controls.Add(this.DateTimePick_FecBaj);
             this.PagSocios.Controls.Add(this.DateTimePick_FecAlt);
             this.PagSocios.Controls.Add(this.cmbbox_BarrCod);
@@ -170,6 +167,30 @@
             this.PagSocios.Text = "Socios";
             this.PagSocios.UseVisualStyleBackColor = true;
             // 
+            // DateTimePick_FecBaj
+            // 
+            this.DateTimePick_FecBaj.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DateTimePick_FecBaj.Location = new System.Drawing.Point(310, 80);
+            this.DateTimePick_FecBaj.Name = "DateTimePick_FecBaj";
+            this.DateTimePick_FecBaj.Size = new System.Drawing.Size(99, 20);
+            this.DateTimePick_FecBaj.TabIndex = 24;
+            // 
+            // DateTimePick_FecAlt
+            // 
+            this.DateTimePick_FecAlt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DateTimePick_FecAlt.Location = new System.Drawing.Point(310, 34);
+            this.DateTimePick_FecAlt.Name = "DateTimePick_FecAlt";
+            this.DateTimePick_FecAlt.Size = new System.Drawing.Size(99, 20);
+            this.DateTimePick_FecAlt.TabIndex = 23;
+            // 
+            // cmbbox_BarrCod
+            // 
+            this.cmbbox_BarrCod.FormattingEnabled = true;
+            this.cmbbox_BarrCod.Location = new System.Drawing.Point(162, 79);
+            this.cmbbox_BarrCod.Name = "cmbbox_BarrCod";
+            this.cmbbox_BarrCod.Size = new System.Drawing.Size(100, 21);
+            this.cmbbox_BarrCod.TabIndex = 22;
+            // 
             // btn_BorrarSocio
             // 
             this.btn_BorrarSocio.Location = new System.Drawing.Point(467, 122);
@@ -178,6 +199,7 @@
             this.btn_BorrarSocio.TabIndex = 21;
             this.btn_BorrarSocio.Text = "Borrar";
             this.btn_BorrarSocio.UseVisualStyleBackColor = true;
+            this.btn_BorrarSocio.Click += new System.EventHandler(this.btn_BorrarSocio_Click);
             // 
             // btn_ModificarSocio
             // 
@@ -187,6 +209,7 @@
             this.btn_ModificarSocio.TabIndex = 20;
             this.btn_ModificarSocio.Text = "Modificar";
             this.btn_ModificarSocio.UseVisualStyleBackColor = true;
+            this.btn_ModificarSocio.Click += new System.EventHandler(this.btn_ModificarSocio_Click);
             // 
             // btn_CargarSocio
             // 
@@ -362,6 +385,7 @@
             this.btn_BorrarCuota.TabIndex = 24;
             this.btn_BorrarCuota.Text = "Borrar";
             this.btn_BorrarCuota.UseVisualStyleBackColor = true;
+            this.btn_BorrarCuota.Click += new System.EventHandler(this.btn_BorrarCuota_Click);
             // 
             // btn_ModificarCuota
             // 
@@ -371,6 +395,7 @@
             this.btn_ModificarCuota.TabIndex = 23;
             this.btn_ModificarCuota.Text = "Modificar";
             this.btn_ModificarCuota.UseVisualStyleBackColor = true;
+            this.btn_ModificarCuota.Click += new System.EventHandler(this.btn_ModificarCuota_Click);
             // 
             // btn_CargarCuota
             // 
@@ -380,10 +405,15 @@
             this.btn_CargarCuota.TabIndex = 22;
             this.btn_CargarCuota.Text = "Cargar";
             this.btn_CargarCuota.UseVisualStyleBackColor = true;
+            this.btn_CargarCuota.Click += new System.EventHandler(this.btn_CargarCuota_Click);
             // 
             // cmbBox_Pagada
             // 
+            this.cmbBox_Pagada.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBox_Pagada.FormattingEnabled = true;
+            this.cmbBox_Pagada.Items.AddRange(new object[] {
+            "S",
+            "N"});
             this.cmbBox_Pagada.Location = new System.Drawing.Point(168, 77);
             this.cmbBox_Pagada.Name = "cmbBox_Pagada";
             this.cmbBox_Pagada.Size = new System.Drawing.Size(100, 21);
@@ -417,7 +447,21 @@
             // 
             // cmbBox_Mes
             // 
+            this.cmbBox_Mes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBox_Mes.FormattingEnabled = true;
+            this.cmbBox_Mes.Items.AddRange(new object[] {
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12"});
             this.cmbBox_Mes.Location = new System.Drawing.Point(21, 129);
             this.cmbBox_Mes.Name = "cmbBox_Mes";
             this.cmbBox_Mes.Size = new System.Drawing.Size(100, 21);
@@ -574,17 +618,21 @@
             // 
             // dgv_Barrios
             // 
-            this.dgv_Barrios.AutoGenerateColumns = false;
             this.dgv_Barrios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Barrios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.barrcodDataGridViewTextBoxColumn,
-            this.barrnombreDataGridViewTextBoxColumn,
-            this.provcodDataGridViewTextBoxColumn1});
-            this.dgv_Barrios.DataSource = this.barriosBindingSource;
             this.dgv_Barrios.Location = new System.Drawing.Point(6, 244);
             this.dgv_Barrios.Name = "dgv_Barrios";
             this.dgv_Barrios.Size = new System.Drawing.Size(756, 150);
             this.dgv_Barrios.TabIndex = 0;
+            // 
+            // barriosBindingSource
+            // 
+            this.barriosBindingSource.DataMember = "barrios";
+            this.barriosBindingSource.DataSource = this.iEFIPrgDataSet2;
+            // 
+            // iEFIPrgDataSet2
+            // 
+            this.iEFIPrgDataSet2.DataSetName = "IEFIPrgDataSet2";
+            this.iEFIPrgDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // PagProvincias
             // 
@@ -639,28 +687,11 @@
             // 
             // dgv_Provincias
             // 
-            this.dgv_Provincias.AutoGenerateColumns = false;
             this.dgv_Provincias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Provincias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.provcodDataGridViewTextBoxColumn,
-            this.provnombreDataGridViewTextBoxColumn});
-            this.dgv_Provincias.DataSource = this.provinciasBindingSource;
             this.dgv_Provincias.Location = new System.Drawing.Point(500, 0);
             this.dgv_Provincias.Name = "dgv_Provincias";
             this.dgv_Provincias.Size = new System.Drawing.Size(265, 397);
             this.dgv_Provincias.TabIndex = 28;
-            // 
-            // provcodDataGridViewTextBoxColumn
-            // 
-            this.provcodDataGridViewTextBoxColumn.DataPropertyName = "prov_cod";
-            this.provcodDataGridViewTextBoxColumn.HeaderText = "prov_cod";
-            this.provcodDataGridViewTextBoxColumn.Name = "provcodDataGridViewTextBoxColumn";
-            // 
-            // provnombreDataGridViewTextBoxColumn
-            // 
-            this.provnombreDataGridViewTextBoxColumn.DataPropertyName = "prov_nombre";
-            this.provnombreDataGridViewTextBoxColumn.HeaderText = "prov_nombre";
-            this.provnombreDataGridViewTextBoxColumn.Name = "provnombreDataGridViewTextBoxColumn";
             // 
             // provinciasBindingSource
             // 
@@ -711,28 +742,11 @@
             // 
             // dgv_Sexos
             // 
-            this.dgv_Sexos.AutoGenerateColumns = false;
             this.dgv_Sexos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Sexos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.sexocodDataGridViewTextBoxColumn,
-            this.sexoDataGridViewTextBoxColumn});
-            this.dgv_Sexos.DataSource = this.sexosBindingSource;
             this.dgv_Sexos.Location = new System.Drawing.Point(3, 3);
             this.dgv_Sexos.Name = "dgv_Sexos";
             this.dgv_Sexos.Size = new System.Drawing.Size(247, 394);
             this.dgv_Sexos.TabIndex = 31;
-            // 
-            // sexocodDataGridViewTextBoxColumn
-            // 
-            this.sexocodDataGridViewTextBoxColumn.DataPropertyName = "sexo_cod";
-            this.sexocodDataGridViewTextBoxColumn.HeaderText = "sexo_cod";
-            this.sexocodDataGridViewTextBoxColumn.Name = "sexocodDataGridViewTextBoxColumn";
-            // 
-            // sexoDataGridViewTextBoxColumn
-            // 
-            this.sexoDataGridViewTextBoxColumn.DataPropertyName = "sexo";
-            this.sexoDataGridViewTextBoxColumn.HeaderText = "sexo";
-            this.sexoDataGridViewTextBoxColumn.Name = "sexoDataGridViewTextBoxColumn";
             // 
             // sexosBindingSource
             // 
@@ -752,61 +766,26 @@
             // 
             this.provinciasTableAdapter.ClearBeforeFill = true;
             // 
-            // iEFIPrgDataSet2
-            // 
-            this.iEFIPrgDataSet2.DataSetName = "IEFIPrgDataSet2";
-            this.iEFIPrgDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // barriosBindingSource
-            // 
-            this.barriosBindingSource.DataMember = "barrios";
-            this.barriosBindingSource.DataSource = this.iEFIPrgDataSet2;
-            // 
             // barriosTableAdapter
             // 
             this.barriosTableAdapter.ClearBeforeFill = true;
             // 
-            // barrcodDataGridViewTextBoxColumn
+            // textBox1
             // 
-            this.barrcodDataGridViewTextBoxColumn.DataPropertyName = "barr_cod";
-            this.barrcodDataGridViewTextBoxColumn.HeaderText = "barr_cod";
-            this.barrcodDataGridViewTextBoxColumn.Name = "barrcodDataGridViewTextBoxColumn";
+            this.textBox1.Location = new System.Drawing.Point(576, 56);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 26;
+            this.textBox1.Text = " ";
             // 
-            // barrnombreDataGridViewTextBoxColumn
+            // label20
             // 
-            this.barrnombreDataGridViewTextBoxColumn.DataPropertyName = "barr_nombre";
-            this.barrnombreDataGridViewTextBoxColumn.HeaderText = "barr_nombre";
-            this.barrnombreDataGridViewTextBoxColumn.Name = "barrnombreDataGridViewTextBoxColumn";
-            // 
-            // provcodDataGridViewTextBoxColumn1
-            // 
-            this.provcodDataGridViewTextBoxColumn1.DataPropertyName = "prov_cod";
-            this.provcodDataGridViewTextBoxColumn1.HeaderText = "prov_cod";
-            this.provcodDataGridViewTextBoxColumn1.Name = "provcodDataGridViewTextBoxColumn1";
-            // 
-            // cmbbox_BarrCod
-            // 
-            this.cmbbox_BarrCod.FormattingEnabled = true;
-            this.cmbbox_BarrCod.Location = new System.Drawing.Point(162, 79);
-            this.cmbbox_BarrCod.Name = "cmbbox_BarrCod";
-            this.cmbbox_BarrCod.Size = new System.Drawing.Size(100, 21);
-            this.cmbbox_BarrCod.TabIndex = 22;
-            // 
-            // DateTimePick_FecAlt
-            // 
-            this.DateTimePick_FecAlt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DateTimePick_FecAlt.Location = new System.Drawing.Point(310, 34);
-            this.DateTimePick_FecAlt.Name = "DateTimePick_FecAlt";
-            this.DateTimePick_FecAlt.Size = new System.Drawing.Size(99, 20);
-            this.DateTimePick_FecAlt.TabIndex = 23;
-            // 
-            // DateTimePick_FecBaj
-            // 
-            this.DateTimePick_FecBaj.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DateTimePick_FecBaj.Location = new System.Drawing.Point(310, 80);
-            this.DateTimePick_FecBaj.Name = "DateTimePick_FecBaj";
-            this.DateTimePick_FecBaj.Size = new System.Drawing.Size(99, 20);
-            this.DateTimePick_FecBaj.TabIndex = 24;
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(573, 40);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(62, 13);
+            this.label20.TabIndex = 25;
+            this.label20.Text = "Socio_Cod:";
             // 
             // FormSocios
             // 
@@ -827,6 +806,8 @@
             this.PagBarrios.ResumeLayout(false);
             this.PagBarrios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Barrios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).EndInit();
             this.PagProvincias.ResumeLayout(false);
             this.PagProvincias.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).EndInit();
@@ -836,8 +817,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Sexos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sexosBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -905,21 +884,16 @@
         private IEFIPrgDataSet iEFIPrgDataSet;
         private System.Windows.Forms.BindingSource sexosBindingSource;
         private IEFIPrgDataSetTableAdapters.sexosTableAdapter sexosTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sexocodDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sexoDataGridViewTextBoxColumn;
         private IEFIPrgDataSet1 iEFIPrgDataSet1;
         private System.Windows.Forms.BindingSource provinciasBindingSource;
         private IEFIPrgDataSet1TableAdapters.provinciasTableAdapter provinciasTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn provcodDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn provnombreDataGridViewTextBoxColumn;
         private IEFIPrgDataSet2 iEFIPrgDataSet2;
         private System.Windows.Forms.BindingSource barriosBindingSource;
         private IEFIPrgDataSet2TableAdapters.barriosTableAdapter barriosTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn barrcodDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn barrnombreDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn provcodDataGridViewTextBoxColumn1;
         private System.Windows.Forms.ComboBox cmbbox_BarrCod;
         private System.Windows.Forms.DateTimePicker DateTimePick_FecAlt;
         private System.Windows.Forms.DateTimePicker DateTimePick_FecBaj;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label20;
     }
 }
