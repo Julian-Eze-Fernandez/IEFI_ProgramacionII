@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PagSocios = new System.Windows.Forms.TabPage();
+            this.txt_Socio_SocioCod = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.DateTimePick_FecBaj = new System.Windows.Forms.DateTimePicker();
             this.DateTimePick_FecAlt = new System.Windows.Forms.DateTimePicker();
             this.cmbbox_BarrCod = new System.Windows.Forms.ComboBox();
@@ -65,7 +67,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txt_Anio = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.txt_SocioCod = new System.Windows.Forms.TextBox();
+            this.txt_Cuota_SocioCod = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.dgv_CuotasSociales = new System.Windows.Forms.DataGridView();
             this.PagBarrios = new System.Windows.Forms.TabPage();
@@ -79,28 +81,26 @@
             this.txt_BarrCod = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.dgv_Barrios = new System.Windows.Forms.DataGridView();
-            this.barriosBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iEFIPrgDataSet2 = new IEFIPrgII.IEFIPrgDataSet2();
             this.PagProvincias = new System.Windows.Forms.TabPage();
             this.txt_ProvNombre = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txt_CodProv = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.dgv_Provincias = new System.Windows.Forms.DataGridView();
-            this.provinciasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iEFIPrgDataSet1 = new IEFIPrgII.IEFIPrgDataSet1();
             this.btn_BorrarProvincias = new System.Windows.Forms.Button();
             this.btn_ModificarProvincias = new System.Windows.Forms.Button();
             this.btn_CargarProvincias = new System.Windows.Forms.Button();
             this.PagSexos = new System.Windows.Forms.TabPage();
             this.dgv_Sexos = new System.Windows.Forms.DataGridView();
+            this.barriosBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iEFIPrgDataSet2 = new IEFIPrgII.IEFIPrgDataSet2();
+            this.provinciasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iEFIPrgDataSet1 = new IEFIPrgII.IEFIPrgDataSet1();
             this.sexosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iEFIPrgDataSet = new IEFIPrgII.IEFIPrgDataSet();
             this.sexosTableAdapter = new IEFIPrgII.IEFIPrgDataSetTableAdapters.sexosTableAdapter();
             this.provinciasTableAdapter = new IEFIPrgII.IEFIPrgDataSet1TableAdapters.provinciasTableAdapter();
             this.barriosTableAdapter = new IEFIPrgII.IEFIPrgDataSet2TableAdapters.barriosTableAdapter();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.PagSocios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Socios)).BeginInit();
@@ -108,14 +108,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CuotasSociales)).BeginInit();
             this.PagBarrios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Barrios)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).BeginInit();
             this.PagProvincias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.provinciasBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet1)).BeginInit();
             this.PagSexos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Sexos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.provinciasBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sexosBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet)).BeginInit();
             this.SuspendLayout();
@@ -135,7 +135,7 @@
             // 
             // PagSocios
             // 
-            this.PagSocios.Controls.Add(this.textBox1);
+            this.PagSocios.Controls.Add(this.txt_Socio_SocioCod);
             this.PagSocios.Controls.Add(this.label20);
             this.PagSocios.Controls.Add(this.DateTimePick_FecBaj);
             this.PagSocios.Controls.Add(this.DateTimePick_FecAlt);
@@ -166,6 +166,23 @@
             this.PagSocios.TabIndex = 0;
             this.PagSocios.Text = "Socios";
             this.PagSocios.UseVisualStyleBackColor = true;
+            // 
+            // txt_Socio_SocioCod
+            // 
+            this.txt_Socio_SocioCod.Location = new System.Drawing.Point(576, 56);
+            this.txt_Socio_SocioCod.Name = "txt_Socio_SocioCod";
+            this.txt_Socio_SocioCod.Size = new System.Drawing.Size(100, 20);
+            this.txt_Socio_SocioCod.TabIndex = 26;
+            this.txt_Socio_SocioCod.Text = " ";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(573, 40);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(62, 13);
+            this.label20.TabIndex = 25;
+            this.label20.Text = "Socio_Cod:";
             // 
             // DateTimePick_FecBaj
             // 
@@ -241,6 +258,9 @@
             // 
             this.cmbBox_Sexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBox_Sexo.FormattingEnabled = true;
+            this.cmbBox_Sexo.Items.AddRange(new object[] {
+            "F",
+            "M"});
             this.cmbBox_Sexo.Location = new System.Drawing.Point(162, 33);
             this.cmbBox_Sexo.Name = "cmbBox_Sexo";
             this.cmbBox_Sexo.Size = new System.Drawing.Size(100, 21);
@@ -369,7 +389,7 @@
             this.PagCuotas.Controls.Add(this.label12);
             this.PagCuotas.Controls.Add(this.txt_Anio);
             this.PagCuotas.Controls.Add(this.label11);
-            this.PagCuotas.Controls.Add(this.txt_SocioCod);
+            this.PagCuotas.Controls.Add(this.txt_Cuota_SocioCod);
             this.PagCuotas.Controls.Add(this.label10);
             this.PagCuotas.Controls.Add(this.dgv_CuotasSociales);
             this.PagCuotas.Location = new System.Drawing.Point(4, 22);
@@ -495,13 +515,13 @@
             this.label11.TabIndex = 13;
             this.label11.Text = "Año:";
             // 
-            // txt_SocioCod
+            // txt_Cuota_SocioCod
             // 
-            this.txt_SocioCod.Location = new System.Drawing.Point(21, 30);
-            this.txt_SocioCod.Name = "txt_SocioCod";
-            this.txt_SocioCod.Size = new System.Drawing.Size(100, 20);
-            this.txt_SocioCod.TabIndex = 12;
-            this.txt_SocioCod.Text = " ";
+            this.txt_Cuota_SocioCod.Location = new System.Drawing.Point(21, 30);
+            this.txt_Cuota_SocioCod.Name = "txt_Cuota_SocioCod";
+            this.txt_Cuota_SocioCod.Size = new System.Drawing.Size(100, 20);
+            this.txt_Cuota_SocioCod.TabIndex = 12;
+            this.txt_Cuota_SocioCod.Text = " ";
             // 
             // label10
             // 
@@ -548,6 +568,7 @@
             this.btn_BorrarBarrios.TabIndex = 27;
             this.btn_BorrarBarrios.Text = "Borrar";
             this.btn_BorrarBarrios.UseVisualStyleBackColor = true;
+            this.btn_BorrarBarrios.Click += new System.EventHandler(this.btn_BorrarBarrios_Click);
             // 
             // btn_ModificarBarrios
             // 
@@ -557,6 +578,7 @@
             this.btn_ModificarBarrios.TabIndex = 26;
             this.btn_ModificarBarrios.Text = "Modificar";
             this.btn_ModificarBarrios.UseVisualStyleBackColor = true;
+            this.btn_ModificarBarrios.Click += new System.EventHandler(this.btn_ModificarBarrios_Click);
             // 
             // btn_CargarBarrios
             // 
@@ -566,6 +588,7 @@
             this.btn_CargarBarrios.TabIndex = 25;
             this.btn_CargarBarrios.Text = "Cargar";
             this.btn_CargarBarrios.UseVisualStyleBackColor = true;
+            this.btn_CargarBarrios.Click += new System.EventHandler(this.btn_CargarBarrios_Click);
             // 
             // txt_ProvCod
             // 
@@ -621,20 +644,10 @@
             // dgv_Barrios
             // 
             this.dgv_Barrios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Barrios.Location = new System.Drawing.Point(6, 244);
+            this.dgv_Barrios.Location = new System.Drawing.Point(349, 6);
             this.dgv_Barrios.Name = "dgv_Barrios";
-            this.dgv_Barrios.Size = new System.Drawing.Size(756, 150);
+            this.dgv_Barrios.Size = new System.Drawing.Size(413, 388);
             this.dgv_Barrios.TabIndex = 0;
-            // 
-            // barriosBindingSource
-            // 
-            this.barriosBindingSource.DataMember = "barrios";
-            this.barriosBindingSource.DataSource = this.iEFIPrgDataSet2;
-            // 
-            // iEFIPrgDataSet2
-            // 
-            this.iEFIPrgDataSet2.DataSetName = "IEFIPrgDataSet2";
-            this.iEFIPrgDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // PagProvincias
             // 
@@ -695,16 +708,6 @@
             this.dgv_Provincias.Size = new System.Drawing.Size(265, 397);
             this.dgv_Provincias.TabIndex = 28;
             // 
-            // provinciasBindingSource
-            // 
-            this.provinciasBindingSource.DataMember = "provincias";
-            this.provinciasBindingSource.DataSource = this.iEFIPrgDataSet1;
-            // 
-            // iEFIPrgDataSet1
-            // 
-            this.iEFIPrgDataSet1.DataSetName = "IEFIPrgDataSet1";
-            this.iEFIPrgDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // btn_BorrarProvincias
             // 
             this.btn_BorrarProvincias.Location = new System.Drawing.Point(156, 102);
@@ -750,6 +753,26 @@
             this.dgv_Sexos.Size = new System.Drawing.Size(247, 394);
             this.dgv_Sexos.TabIndex = 31;
             // 
+            // barriosBindingSource
+            // 
+            this.barriosBindingSource.DataMember = "barrios";
+            this.barriosBindingSource.DataSource = this.iEFIPrgDataSet2;
+            // 
+            // iEFIPrgDataSet2
+            // 
+            this.iEFIPrgDataSet2.DataSetName = "IEFIPrgDataSet2";
+            this.iEFIPrgDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // provinciasBindingSource
+            // 
+            this.provinciasBindingSource.DataMember = "provincias";
+            this.provinciasBindingSource.DataSource = this.iEFIPrgDataSet1;
+            // 
+            // iEFIPrgDataSet1
+            // 
+            this.iEFIPrgDataSet1.DataSetName = "IEFIPrgDataSet1";
+            this.iEFIPrgDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // sexosBindingSource
             // 
             this.sexosBindingSource.DataMember = "sexos";
@@ -772,23 +795,6 @@
             // 
             this.barriosTableAdapter.ClearBeforeFill = true;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(576, 56);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 26;
-            this.textBox1.Text = " ";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(573, 40);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(62, 13);
-            this.label20.TabIndex = 25;
-            this.label20.Text = "Socio_Cod:";
-            // 
             // FormSocios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -808,15 +814,15 @@
             this.PagBarrios.ResumeLayout(false);
             this.PagBarrios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Barrios)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).EndInit();
             this.PagProvincias.ResumeLayout(false);
             this.PagProvincias.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.provinciasBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet1)).EndInit();
             this.PagSexos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Sexos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.provinciasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sexosBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet)).EndInit();
             this.ResumeLayout(false);
@@ -857,7 +863,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txt_Anio;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txt_SocioCod;
+        private System.Windows.Forms.TextBox txt_Cuota_SocioCod;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView dgv_CuotasSociales;
         private System.Windows.Forms.Button btn_BorrarCuota;
@@ -895,7 +901,7 @@
         private System.Windows.Forms.ComboBox cmbbox_BarrCod;
         private System.Windows.Forms.DateTimePicker DateTimePick_FecAlt;
         private System.Windows.Forms.DateTimePicker DateTimePick_FecBaj;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_Socio_SocioCod;
         private System.Windows.Forms.Label label20;
     }
 }

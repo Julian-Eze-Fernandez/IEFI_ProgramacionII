@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,7 @@ namespace IEFIPrgII
 
         NegSocio objNegSocio = new NegSocio();
         NegCuotaSocial objNegCuotaSocial = new NegCuotaSocial();
+        NegBarrio objNegBarrio = new NegBarrio();
 
         public FormSocios()
         {
@@ -24,16 +26,18 @@ namespace IEFIPrgII
             CrearDGVS();
             LLenarDGVSocios();
             LLenarDGVCuotasSociales();
+            LLenarDGVBarrios();
+            LlenarCombos();
         }
 
         private void FormSocios_Load(object sender, EventArgs e)
         {
             // TODO: esta línea de código carga datos en la tabla 'iEFIPrgDataSet2.barrios' Puede moverla o quitarla según sea necesario.
-            this.barriosTableAdapter.Fill(this.iEFIPrgDataSet2.barrios);
+            //this.barriosTableAdapter.Fill(this.iEFIPrgDataSet2.barrios);
             // TODO: esta línea de código carga datos en la tabla 'iEFIPrgDataSet1.provincias' Puede moverla o quitarla según sea necesario.
-            this.provinciasTableAdapter.Fill(this.iEFIPrgDataSet1.provincias);
+            //this.provinciasTableAdapter.Fill(this.iEFIPrgDataSet1.provincias);
             // TODO: esta línea de código carga datos en la tabla 'iEFIPrgDataSet.sexos' Puede moverla o quitarla según sea necesario.
-            this.sexosTableAdapter.Fill(this.iEFIPrgDataSet.sexos);
+            //this.sexosTableAdapter.Fill(this.iEFIPrgDataSet.sexos);
 
         }
 
@@ -75,8 +79,25 @@ namespace IEFIPrgII
             dgv_CuotasSociales.Columns[3].Width = 100;
             dgv_CuotasSociales.Columns[4].Width = 100;
 
+
+            // Data Grid View BARRIOS
+            dgv_Barrios.Columns.Add("0", "Codigo");
+            dgv_Barrios.Columns.Add("1", "Nombre");
+            dgv_Barrios.Columns.Add("2", "Cod_Provincia");
+            
+            dgv_Barrios.Columns[0].Width = 100;
+            dgv_Barrios.Columns[1].Width = 100;
+            dgv_Barrios.Columns[2].Width = 100;
+            
         }
-        
+
+        void LlenarCombos()
+        { //llena un combo desde una lista con descripcion y código
+            cmbbox_BarrCod.DataSource = objNegBarrio.ObtenerBarrios(); // se define el origen con la Lista
+            cmbbox_BarrCod.DisplayMember = "Barr_Cod";
+            cmbbox_BarrCod.ValueMember = "Barr_Cod";
+
+        }
 
         //Socios
         private void LLenarDGVSocios()
@@ -99,11 +120,25 @@ namespace IEFIPrgII
         }
         private void btn_CargarSocio_Click(object sender, EventArgs e)
         {
-            Socio NuevoSocio = new Socio(txt_SocioCod.Text,txt_NombreSoc.Text,txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
+            int nGrabados = -1;
+
+            Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text,txt_NombreSoc.Text,txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
                                         txt_DomicilioSoc.Text, cmbbox_BarrCod.Text, decimal.Parse(txt_MontoMes.Text),
                                         DateTimePick_FecAlt.Value, DateTimePick_FecBaj.Value, char.Parse(cmbBox_Activo.Text));
 
-            MessageBox.Show("Socio Instanciado");
+
+            nGrabados = objNegSocio.abmSocios("Alta", NuevoSocio);
+
+            if (nGrabados == -1)
+            {
+                MessageBox.Show("No se pudo grabar el socio en el sistema");
+            }
+            else
+            {
+                MessageBox.Show("Socio Instanciado");
+                LLenarDGVSocios();
+                LimpiarCuota_Social();
+            }
         }
 
         private void btn_ModificarSocio_Click(object sender, EventArgs e)
@@ -115,7 +150,6 @@ namespace IEFIPrgII
         {
 
         }
-
 
         //Cuotas Sociales
         private void LLenarDGVCuotasSociales()
@@ -139,10 +173,24 @@ namespace IEFIPrgII
 
         private void btn_CargarCuota_Click(object sender, EventArgs e)
         {
-            Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_SocioCod.Text,char.Parse(txt_Anio.Text),char.Parse(cmbBox_Mes.Text),
+            int nGrabados = -1;
+
+            Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text,txt_Anio.Text,cmbBox_Mes.Text,
                                                             decimal.Parse(txt_MontoCuota.Text),char.Parse(cmbBox_Pagada.Text));
 
-            MessageBox.Show("Cuota Social Instanciada");
+            nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Alta", NuevaCuotaSocial);
+
+            if (nGrabados == -1)
+            {
+                MessageBox.Show("No se pudo grabar la cuota en el sistema");
+            }
+            else
+            {
+                MessageBox.Show("Cuota Social Instanciada");
+                LLenarDGVCuotasSociales();
+                LimpiarCuota_Social();
+            }
+
         }
 
         private void btn_ModificarCuota_Click(object sender, EventArgs e)
@@ -154,5 +202,51 @@ namespace IEFIPrgII
         {
 
         }
+        private void LimpiarCuota_Social() 
+        {
+            txt_Cuota_SocioCod.Text = string.Empty;
+            txt_Anio.Text = string.Empty;
+            cmbBox_Mes.Text = string.Empty;
+            txt_MontoCuota.Text = string.Empty;
+            cmbBox_Pagada .Text = string.Empty;
+        }
+
+        //Barrios
+        private void LLenarDGVBarrios()
+        {
+            dgv_Barrios.Rows.Clear();
+
+            DataSet ds = new DataSet();
+            ds = objNegBarrio.listadoBarrios("Todos");
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    //Lo que quieres mostrar esta en dr[0].ToString(), dr[1].ToString(),etc...
+                    dgv_Barrios.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString());
+                }
+            }
+            else
+                MessageBox.Show("No hay Barrios cargados en el sistema.");
+        }
+
+        private void btn_CargarBarrios_Click(object sender, EventArgs e)
+        {
+            Barrio NuevaBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(txt_ProvCod.Text));
+
+            MessageBox.Show("Barrio Instanciada");
+        }
+
+        private void btn_ModificarBarrios_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_BorrarBarrios_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

@@ -45,7 +45,6 @@
     <Compile Include="Cuota_Social.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provincia.cs" />
-    <Compile Include="Sexo.cs" />
     <Compile Include="Socio.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,8 +11,8 @@ namespace Entity
         #region Atributos
 
         private string socio_cod;
-        private char anio;
-        private char mes;
+        private string anio;
+        private string mes;
         private decimal monto_cuota;
         private char pagada;
 
@@ -25,7 +25,7 @@ namespace Entity
 
         }
 
-        public Cuota_Social(string soc_cod, char ani, char ms, decimal mon_cuo, char pag)
+        public Cuota_Social(string soc_cod, string ani, string ms, decimal mon_cuo, char pag)
         {
             socio_cod = soc_cod;
             anio = ani;
@@ -39,8 +39,8 @@ namespace Entity
         #region Propiedades
 
         public string Socio_Cod { get { return socio_cod; } set { socio_cod = value; } }
-        public char Anio { get { return anio; } set { anio = value; } }
-        public char Mes { get { return mes; } set { mes = value; } }
+        public string Anio { get { return anio; } set { anio = value; } }
+        public string Mes { get { return mes; } set { mes = value; } }
         public decimal Monto_Cuota { get { return monto_cuota; } set { monto_cuota = value; } }
         public char Pagada { get { return pagada; } set { pagada = value; } }
 

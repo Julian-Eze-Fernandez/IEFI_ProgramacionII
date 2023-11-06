@@ -13,9 +13,12 @@ namespace CapaDatos
     {
         protected SqlConnection conexion;
         //CadenaConexion Julian:
-        protected string cadenaConexion = "Data Source=DESKTOP-M5DJ7QL\\SQLEXPRESS;Initial Catalog=IEFIPrg;Integrated Security=True";
+        //protected string cadenaConexion = "Data Source=DESKTOP-M5DJ7QL\\SQLEXPRESS;Initial Catalog=IEFIPrg;Integrated Security=True";
         //CadenaConexion David:
         //protected string cadenaConexion = "";
+        //CadenaConexion Facu6:
+        protected string cadenaConexion = "Data Source=EQUIPO\\SQLEXPRESS;Initial Catalog=IEFIPrg;Integrated Security=True";
+
 
         public DatosConexion()
         {

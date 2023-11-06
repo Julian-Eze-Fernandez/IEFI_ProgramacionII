@@ -61,5 +61,7 @@ namespace Entity
         public char Activo { get { return activo; } set { activo = value; } }
 
         #endregion
+
+
     }
 }

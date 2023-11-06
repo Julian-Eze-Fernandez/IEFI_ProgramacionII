@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NegBarrio.cs" />
     <Compile Include="NegCuotaSocial.cs" />
     <Compile Include="NegSocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

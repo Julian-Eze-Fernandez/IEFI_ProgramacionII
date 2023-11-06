@@ -23,6 +23,12 @@ namespace Entity
 
         }
 
+        public Barrio(string br_cod, string br_nombre, char pr_cod )
+        {
+            barr_cod = br_cod;
+            barr_nombre = br_nombre;
+            prov_cod = pr_cod;
+        }
         #endregion
 
         #region Propiedades
