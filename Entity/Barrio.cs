@@ -23,6 +23,11 @@ namespace Entity
 
         }
 
+        public Barrio(string br_cod)
+        {
+            barr_cod = br_cod;
+        }
+
         public Barrio(string br_cod, string br_nombre, char pr_cod )
         {
             barr_cod = br_cod;

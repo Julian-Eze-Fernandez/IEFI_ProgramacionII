@@ -596,7 +596,6 @@
             this.txt_ProvCod.Name = "txt_ProvCod";
             this.txt_ProvCod.Size = new System.Drawing.Size(100, 20);
             this.txt_ProvCod.TabIndex = 18;
-            this.txt_ProvCod.Text = " ";
             // 
             // label17
             // 
@@ -630,7 +629,6 @@
             this.txt_BarrCod.Name = "txt_BarrCod";
             this.txt_BarrCod.Size = new System.Drawing.Size(100, 20);
             this.txt_BarrCod.TabIndex = 14;
-            this.txt_BarrCod.Text = " ";
             // 
             // label15
             // 

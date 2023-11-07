@@ -15,10 +15,10 @@ namespace IEFIPrgII
 {
     public partial class FormSocios : Form
     {
-
         NegSocio objNegSocio = new NegSocio();
         NegCuotaSocial objNegCuotaSocial = new NegCuotaSocial();
         NegBarrio objNegBarrio = new NegBarrio();
+
 
         public FormSocios()
         {
@@ -143,13 +143,55 @@ namespace IEFIPrgII
 
         private void btn_ModificarSocio_Click(object sender, EventArgs e)
         {
+            int nResultado = -1;
+            Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text, txt_NombreSoc.Text, txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
+                            txt_DomicilioSoc.Text, cmbbox_BarrCod.Text, decimal.Parse(txt_MontoMes.Text),
+                            DateTimePick_FecAlt.Value, DateTimePick_FecBaj.Value, char.Parse(cmbBox_Activo.Text));
 
+            nResultado = objNegSocio.abmSocios("Modificar", NuevoSocio); //invoco a la capa de negocio
+
+
+            if (nResultado != -1)
+            {
+                MessageBox.Show("El Socio fue Modificado con éxito", "Aviso");
+                LimpiarSocio();
+                LLenarDGVSocios();
+
+                txt_Socio_SocioCod.Enabled = true;
+
+            }
+            else
+                MessageBox.Show("Se produjo un error al intentar modificar el socio", "Error");
         }
+    
 
         private void btn_BorrarSocio_Click(object sender, EventArgs e)
         {
+            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el Socio numero " + txt_Socio_SocioCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                int nGrabados = -1;
+                Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text);
+                nGrabados = objNegSocio.abmSocios("Borrar", NuevoSocio);
+                LLenarDGVSocios();
+                txt_Socio_SocioCod.Text = "";
+
+            }
 
         }
+
+        private void LimpiarSocio()
+        {
+            txt_NombreSoc.Text = string.Empty;
+            txt_ApellidoSoc.Text = string.Empty;
+            txt_DomicilioSoc.Text = string.Empty;
+            cmbBox_Sexo.Text = string.Empty;
+            cmbbox_BarrCod.Text = string.Empty;
+            txt_MontoMes.Text = string.Empty;
+            cmbBox_Activo.Text = string.Empty;
+            txt_Socio_SocioCod.Text = string.Empty;
+        }
+
 
         //Cuotas Sociales
         private void LLenarDGVCuotasSociales()
@@ -233,20 +275,69 @@ namespace IEFIPrgII
 
         private void btn_CargarBarrios_Click(object sender, EventArgs e)
         {
-            Barrio NuevaBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(txt_ProvCod.Text));
+            MessageBox.Show("Barrio Instanciado");
 
-            MessageBox.Show("Barrio Instanciada");
+            int nGrabados = -1;
+
+            Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(txt_ProvCod.Text));
+
+
+            nGrabados = objNegBarrio.abmBarrios("Alta", NuevoBarrio);
+
+            if (nGrabados == -1)
+            {
+                MessageBox.Show("No se pudo grabar el barrio en el sistema");
+            }
+            else
+            {
+                MessageBox.Show("Barrio Instanciado");
+                LLenarDGVBarrios();
+                LimpiarBarrios();
+            }
+
         }
 
         private void btn_ModificarBarrios_Click(object sender, EventArgs e)
         {
+            int nResultado = -1;
+            Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(txt_ProvCod.Text));
 
+            nResultado = objNegBarrio.abmBarrios("Modificar", NuevoBarrio); //invoco a la capa de negocio
+
+
+            if (nResultado != -1)
+            {
+                MessageBox.Show("El Barrio fue Modificado con éxito", "Aviso");
+                LimpiarBarrios();
+                LLenarDGVBarrios();
+                
+                txt_BarrCod.Enabled = true;
+
+            }
+            else
+                MessageBox.Show("Se produjo un error al intentar modificar el barrio", "Error");
         }
 
         private void btn_BorrarBarrios_Click(object sender, EventArgs e)
         {
+            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el Barrio con codigo " + txt_BarrCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                int nGrabados = -1;
+                Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text);
+                nGrabados = objNegBarrio.abmBarrios("Borrar", NuevoBarrio);
+                LLenarDGVBarrios();
+                txt_BarrCod.Text = "";
 
+            }
         }
+        private void LimpiarBarrios()
+        {
+            txt_BarrCod.Text = string.Empty;
+            txt_BarrNombre.Text = string.Empty;
+            txt_ProvCod.Text = string.Empty;    
+        }
+
 
     }
 }

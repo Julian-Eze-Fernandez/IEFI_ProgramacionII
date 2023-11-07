@@ -23,11 +23,11 @@ namespace CapaDatos
             }
 
             if (accion == "Modificar") // para modificar un existente
-                orden = $"update barrios set Barr_Nombre='{objBarrio.Barr_Nombre}', Prov_Cod='{objBarrio.Prov_Cod}' WHERE barr_cod like '%{objBarrio.Barr_Cod}%';";
+                orden = $"update barrios set Barr_Nombre='{objBarrio.Barr_Nombre}', Prov_Cod='{objBarrio.Prov_Cod}' WHERE Barr_Cod like '%{objBarrio.Barr_Cod}%';";
 
 
             if (accion == "Borrar") // para borrar un existente
-                orden = "delete * from barrios where Barr_Cod =" + objBarrio.Barr_Cod + ";";
+                orden = $"delete from barrios where Barr_Cod =  '{objBarrio.Barr_Cod}';";
 
 
             SqlCommand cmd = new SqlCommand(orden, conexion);
