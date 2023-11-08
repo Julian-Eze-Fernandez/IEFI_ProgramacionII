@@ -22,5 +22,10 @@ namespace CapaNegocio
         {
             return DatosObjCuotaSocial.listadoCuotas_Sociales(cual);
         }
+
+        public bool ExisteCodigoSocio(string codigoSocio)
+        {
+            return DatosObjCuotaSocial.ExisteCodigoSocio(codigoSocio);
+        }
     }
 }

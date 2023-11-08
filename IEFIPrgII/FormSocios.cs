@@ -217,32 +217,69 @@ namespace IEFIPrgII
         {
             int nGrabados = -1;
 
-            Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text,txt_Anio.Text,cmbBox_Mes.Text,
-                                                            decimal.Parse(txt_MontoCuota.Text),char.Parse(cmbBox_Pagada.Text));
+            string codigoSocio = txt_Cuota_SocioCod.Text;
 
-            nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Alta", NuevaCuotaSocial);
-
-            if (nGrabados == -1)
+            if (objNegCuotaSocial.ExisteCodigoSocio(codigoSocio))
             {
-                MessageBox.Show("No se pudo grabar la cuota en el sistema");
+                // El código de socio existe, puedes realizar la operación correspondiente.
+                Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text, txt_Anio.Text, cmbBox_Mes.Text,
+                                                            decimal.Parse(txt_MontoCuota.Text), char.Parse(cmbBox_Pagada.Text));
+
+                nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Alta", NuevaCuotaSocial);
+
+                if (nGrabados == -1)
+                {
+                    MessageBox.Show("No se pudo grabar la cuota en el sistema");
+                }
+                else
+                {
+                    MessageBox.Show("Cuota Social Instanciada");
+                    LLenarDGVCuotasSociales();
+                    LimpiarCuota_Social();
+                }
             }
             else
             {
-                MessageBox.Show("Cuota Social Instanciada");
-                LLenarDGVCuotasSociales();
-                LimpiarCuota_Social();
+                // El código de socio no existe, muestra un mensaje de error o realiza otra acción.
+                MessageBox.Show("ERROR, EL CODIGO DEL SOCIO INGRESADO NO EXISTE.");
             }
 
         }
 
         private void btn_ModificarCuota_Click(object sender, EventArgs e)
         {
+            int nResultado = -1;
+            Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text, txt_Anio.Text, cmbBox_Mes.Text,
+                                                            decimal.Parse(txt_MontoCuota.Text), char.Parse(cmbBox_Pagada.Text));
 
+            nResultado = objNegCuotaSocial.abmCuotas_Sociales("Modificar", NuevaCuotaSocial); //invoco a la capa de negocio
+
+
+            if (nResultado != -1)
+            {
+                MessageBox.Show("La cuota fue Modificada con éxito", "Aviso");
+                LimpiarSocio();
+                LLenarDGVCuotasSociales();
+
+                txt_Cuota_SocioCod.Enabled = true;
+
+            }
+            else
+                MessageBox.Show("Se produjo un error al intentar modificar la cuota", "Error");
         }
 
         private void btn_BorrarCuota_Click(object sender, EventArgs e)
         {
+            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la cuota del socio numero " + txt_Cuota_SocioCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                int nGrabados = -1;
+                Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text, txt_Anio.Text, cmbBox_Mes.Text);
+                nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Borrar", NuevaCuotaSocial);
+                LLenarDGVCuotasSociales();
+                txt_Cuota_SocioCod.Text = "";
 
+            }
         }
         private void LimpiarCuota_Social() 
         {

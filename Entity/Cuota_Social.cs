@@ -25,6 +25,13 @@ namespace Entity
 
         }
 
+        public Cuota_Social(string soc_cod, string ani, string ms)
+        {
+            socio_cod = soc_cod;
+            anio = ani;
+            mes = ms;
+        }
+
         public Cuota_Social(string soc_cod, string ani, string ms, decimal mon_cuo, char pag)
         {
             socio_cod = soc_cod;
