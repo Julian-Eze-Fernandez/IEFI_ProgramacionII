@@ -19,7 +19,8 @@ namespace CapaDatos
 
             if (accion == "Alta") // para agregar un producto nuevo
             {
-                orden = $"insert into socios (Socio_Cod, Nombre, Apellido, Sexo_Cod, Domicilio, Barr_Cod, Monto_Mes, Fecha_Alta, Fecha_Baja, Activo) values ('{objSocio.Socio_Cod}', '{objSocio.Nombre}', '{objSocio.Apellido}', '{objSocio.Sexo_Cod}', '{objSocio.Domicilio}' , '{objSocio.Barr_Cod}', {objSocio.Monto_Mes}, '{objSocio.Fecha_Alta}', '{objSocio.Fecha_Baja}', '{objSocio.Activo}' );";
+                //orden = $"insert into socios (Socio_Cod, Nombre, Apellido, Sexo_Cod, Domicilio, Barr_Cod, Monto_Mes, Fecha_Alta, Fecha_Baja, Activo) values ('{objSocio.Socio_Cod}', '{objSocio.Nombre}', '{objSocio.Apellido}', '{objSocio.Sexo_Cod}', '{objSocio.Domicilio}' , '{objSocio.Barr_Cod}', {objSocio.Monto_Mes}, '{objSocio.Fecha_Alta}', '{objSocio.Fecha_Baja}', '{objSocio.Activo}' );";
+                orden = $"insert into socios (Socio_Cod, Nombre, Apellido, Sexo_Cod, Domicilio, Barr_Cod, Monto_Mes, Fecha_Alta, Fecha_Baja, Activo) values ('{objSocio.Socio_Cod}', '{objSocio.Nombre}', '{objSocio.Apellido}', '{objSocio.Sexo_Cod}', '{objSocio.Domicilio}' , '{objSocio.Barr_Cod}', {objSocio.Monto_Mes}, '{objSocio.Fecha_Alta}', null , '{objSocio.Activo}' );";
             }
 
             if (accion == "Modificar") // para modificar un existente
@@ -37,6 +38,7 @@ namespace CapaDatos
                 orden = $"update socios set Activo = 'N' WHERE Socio_Cod = '{objSocio.Socio_Cod}';";
             }
 
+            
 
             SqlCommand cmd = new SqlCommand(orden, conexion);
             try

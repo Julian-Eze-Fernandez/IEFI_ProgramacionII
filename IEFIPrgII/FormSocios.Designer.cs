@@ -40,6 +40,7 @@
             this.provinciasTableAdapter = new IEFIPrgII.IEFIPrgDataSet1TableAdapters.provinciasTableAdapter();
             this.barriosTableAdapter = new IEFIPrgII.IEFIPrgDataSet2TableAdapters.barriosTableAdapter();
             this.PagBarrios = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
             this.btn_ReporteBarrios = new System.Windows.Forms.Button();
             this.cmbBox_Provincias = new System.Windows.Forms.ComboBox();
             this.btn_BorrarBarrios = new System.Windows.Forms.Button();
@@ -52,6 +53,13 @@
             this.label15 = new System.Windows.Forms.Label();
             this.dgv_Barrios = new System.Windows.Forms.DataGridView();
             this.PagCuotas = new System.Windows.Forms.TabPage();
+            this.txt_AnioBorrar = new System.Windows.Forms.TextBox();
+            this.cmb_MesBorrar = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txt_CuotaBorrar = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.btn_ReporteCuotas = new System.Windows.Forms.Button();
             this.btn_BorrarCuota = new System.Windows.Forms.Button();
             this.btn_ModificarCuota = new System.Windows.Forms.Button();
@@ -68,6 +76,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dgv_CuotasSociales = new System.Windows.Forms.DataGridView();
             this.PagSocios = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txt_SocioBorrar = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.btn_ReporteSocios = new System.Windows.Forms.Button();
             this.txt_Socio_SocioCod = new System.Windows.Forms.TextBox();
             this.txt_MontoMes = new System.Windows.Forms.TextBox();
@@ -95,8 +106,11 @@
             this.dgv_Socios = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PagProvincias = new System.Windows.Forms.TabPage();
+            this.label22 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.dgv_Provincias = new System.Windows.Forms.DataGridView();
+            this.epv_MontoMes = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epv_MontoCuota = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.provinciasBindingSource)).BeginInit();
@@ -112,6 +126,8 @@
             this.tabControl1.SuspendLayout();
             this.PagProvincias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epv_MontoMes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epv_MontoCuota)).BeginInit();
             this.SuspendLayout();
             // 
             // barriosBindingSource
@@ -159,6 +175,7 @@
             // PagBarrios
             // 
             this.PagBarrios.BackColor = System.Drawing.SystemColors.Control;
+            this.PagBarrios.Controls.Add(this.label21);
             this.PagBarrios.Controls.Add(this.btn_ReporteBarrios);
             this.PagBarrios.Controls.Add(this.cmbBox_Provincias);
             this.PagBarrios.Controls.Add(this.btn_BorrarBarrios);
@@ -177,11 +194,21 @@
             this.PagBarrios.TabIndex = 1;
             this.PagBarrios.Text = "Barrios";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(644, 19);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(99, 13);
+            this.label21.TabIndex = 30;
+            this.label21.Text = "Imprimir Reporte";
+            // 
             // btn_ReporteBarrios
             // 
             this.btn_ReporteBarrios.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_ReporteBarrios.Image = global::IEFIPrgII.Properties.Resources.printer_78322;
-            this.btn_ReporteBarrios.Location = new System.Drawing.Point(271, 35);
+            this.btn_ReporteBarrios.Image = ((System.Drawing.Image)(resources.GetObject("btn_ReporteBarrios.Image")));
+            this.btn_ReporteBarrios.Location = new System.Drawing.Point(749, 6);
             this.btn_ReporteBarrios.Name = "btn_ReporteBarrios";
             this.btn_ReporteBarrios.Size = new System.Drawing.Size(37, 39);
             this.btn_ReporteBarrios.TabIndex = 29;
@@ -285,14 +312,22 @@
             // dgv_Barrios
             // 
             this.dgv_Barrios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Barrios.Location = new System.Drawing.Point(349, 6);
+            this.dgv_Barrios.Location = new System.Drawing.Point(277, 19);
             this.dgv_Barrios.Name = "dgv_Barrios";
             this.dgv_Barrios.Size = new System.Drawing.Size(361, 388);
             this.dgv_Barrios.TabIndex = 0;
+            this.dgv_Barrios.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Barrios_CellMouseClick);
             // 
             // PagCuotas
             // 
             this.PagCuotas.BackColor = System.Drawing.SystemColors.Control;
+            this.PagCuotas.Controls.Add(this.txt_AnioBorrar);
+            this.PagCuotas.Controls.Add(this.cmb_MesBorrar);
+            this.PagCuotas.Controls.Add(this.label25);
+            this.PagCuotas.Controls.Add(this.label26);
+            this.PagCuotas.Controls.Add(this.txt_CuotaBorrar);
+            this.PagCuotas.Controls.Add(this.label24);
+            this.PagCuotas.Controls.Add(this.label18);
             this.PagCuotas.Controls.Add(this.btn_ReporteCuotas);
             this.PagCuotas.Controls.Add(this.btn_BorrarCuota);
             this.PagCuotas.Controls.Add(this.btn_ModificarCuota);
@@ -314,11 +349,84 @@
             this.PagCuotas.TabIndex = 4;
             this.PagCuotas.Text = "Cuotas_Sociales";
             // 
+            // txt_AnioBorrar
+            // 
+            this.txt_AnioBorrar.Location = new System.Drawing.Point(25, 335);
+            this.txt_AnioBorrar.Name = "txt_AnioBorrar";
+            this.txt_AnioBorrar.Size = new System.Drawing.Size(100, 20);
+            this.txt_AnioBorrar.TabIndex = 33;
+            // 
+            // cmb_MesBorrar
+            // 
+            this.cmb_MesBorrar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_MesBorrar.FormattingEnabled = true;
+            this.cmb_MesBorrar.Items.AddRange(new object[] {
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12"});
+            this.cmb_MesBorrar.Location = new System.Drawing.Point(25, 376);
+            this.cmb_MesBorrar.Name = "cmb_MesBorrar";
+            this.cmb_MesBorrar.Size = new System.Drawing.Size(100, 21);
+            this.cmb_MesBorrar.TabIndex = 35;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(22, 360);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(30, 13);
+            this.label25.TabIndex = 34;
+            this.label25.Text = "Mes:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(22, 319);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(29, 13);
+            this.label26.TabIndex = 32;
+            this.label26.Text = "Año:";
+            // 
+            // txt_CuotaBorrar
+            // 
+            this.txt_CuotaBorrar.Location = new System.Drawing.Point(21, 294);
+            this.txt_CuotaBorrar.Name = "txt_CuotaBorrar";
+            this.txt_CuotaBorrar.Size = new System.Drawing.Size(100, 20);
+            this.txt_CuotaBorrar.TabIndex = 31;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(18, 278);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(62, 13);
+            this.label24.TabIndex = 30;
+            this.label24.Text = "Socio_Cod:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(642, 18);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(99, 13);
+            this.label18.TabIndex = 29;
+            this.label18.Text = "Imprimir Reporte";
+            // 
             // btn_ReporteCuotas
             // 
             this.btn_ReporteCuotas.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_ReporteCuotas.Image = global::IEFIPrgII.Properties.Resources.printer_78322;
-            this.btn_ReporteCuotas.Location = new System.Drawing.Point(502, 73);
+            this.btn_ReporteCuotas.Image = ((System.Drawing.Image)(resources.GetObject("btn_ReporteCuotas.Image")));
+            this.btn_ReporteCuotas.Location = new System.Drawing.Point(747, 5);
             this.btn_ReporteCuotas.Name = "btn_ReporteCuotas";
             this.btn_ReporteCuotas.Size = new System.Drawing.Size(37, 39);
             this.btn_ReporteCuotas.TabIndex = 28;
@@ -327,7 +435,7 @@
             // 
             // btn_BorrarCuota
             // 
-            this.btn_BorrarCuota.Location = new System.Drawing.Point(329, 118);
+            this.btn_BorrarCuota.Location = new System.Drawing.Point(131, 376);
             this.btn_BorrarCuota.Name = "btn_BorrarCuota";
             this.btn_BorrarCuota.Size = new System.Drawing.Size(75, 23);
             this.btn_BorrarCuota.TabIndex = 24;
@@ -337,7 +445,7 @@
             // 
             // btn_ModificarCuota
             // 
-            this.btn_ModificarCuota.Location = new System.Drawing.Point(329, 73);
+            this.btn_ModificarCuota.Location = new System.Drawing.Point(111, 236);
             this.btn_ModificarCuota.Name = "btn_ModificarCuota";
             this.btn_ModificarCuota.Size = new System.Drawing.Size(75, 23);
             this.btn_ModificarCuota.TabIndex = 23;
@@ -347,7 +455,7 @@
             // 
             // btn_CargarCuota
             // 
-            this.btn_CargarCuota.Location = new System.Drawing.Point(329, 30);
+            this.btn_CargarCuota.Location = new System.Drawing.Point(16, 236);
             this.btn_CargarCuota.Name = "btn_CargarCuota";
             this.btn_CargarCuota.Size = new System.Drawing.Size(75, 23);
             this.btn_CargarCuota.TabIndex = 22;
@@ -362,7 +470,7 @@
             this.cmbBox_Pagada.Items.AddRange(new object[] {
             "S",
             "N"});
-            this.cmbBox_Pagada.Location = new System.Drawing.Point(168, 77);
+            this.cmbBox_Pagada.Location = new System.Drawing.Point(25, 200);
             this.cmbBox_Pagada.Name = "cmbBox_Pagada";
             this.cmbBox_Pagada.Size = new System.Drawing.Size(100, 21);
             this.cmbBox_Pagada.TabIndex = 21;
@@ -370,7 +478,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(165, 62);
+            this.label14.Location = new System.Drawing.Point(22, 185);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(47, 13);
             this.label14.TabIndex = 20;
@@ -378,21 +486,21 @@
             // 
             // txt_MontoCuota
             // 
-            this.txt_MontoCuota.Location = new System.Drawing.Point(168, 30);
+            this.txt_MontoCuota.Location = new System.Drawing.Point(25, 158);
             this.txt_MontoCuota.Name = "txt_MontoCuota";
             this.txt_MontoCuota.Size = new System.Drawing.Size(100, 20);
             this.txt_MontoCuota.TabIndex = 19;
             // 
             // txt_Anio
             // 
-            this.txt_Anio.Location = new System.Drawing.Point(21, 78);
+            this.txt_Anio.Location = new System.Drawing.Point(25, 75);
             this.txt_Anio.Name = "txt_Anio";
             this.txt_Anio.Size = new System.Drawing.Size(100, 20);
             this.txt_Anio.TabIndex = 14;
             // 
             // txt_Cuota_SocioCod
             // 
-            this.txt_Cuota_SocioCod.Location = new System.Drawing.Point(21, 30);
+            this.txt_Cuota_SocioCod.Location = new System.Drawing.Point(25, 34);
             this.txt_Cuota_SocioCod.Name = "txt_Cuota_SocioCod";
             this.txt_Cuota_SocioCod.Size = new System.Drawing.Size(100, 20);
             this.txt_Cuota_SocioCod.TabIndex = 12;
@@ -400,7 +508,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(165, 14);
+            this.label13.Location = new System.Drawing.Point(22, 142);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(74, 13);
             this.label13.TabIndex = 18;
@@ -423,7 +531,7 @@
             "10",
             "11",
             "12"});
-            this.cmbBox_Mes.Location = new System.Drawing.Point(21, 129);
+            this.cmbBox_Mes.Location = new System.Drawing.Point(25, 116);
             this.cmbBox_Mes.Name = "cmbBox_Mes";
             this.cmbBox_Mes.Size = new System.Drawing.Size(100, 21);
             this.cmbBox_Mes.TabIndex = 17;
@@ -431,7 +539,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(18, 113);
+            this.label12.Location = new System.Drawing.Point(22, 100);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(30, 13);
             this.label12.TabIndex = 15;
@@ -440,7 +548,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(18, 62);
+            this.label11.Location = new System.Drawing.Point(22, 59);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 13;
@@ -449,7 +557,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(18, 14);
+            this.label10.Location = new System.Drawing.Point(22, 18);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(62, 13);
             this.label10.TabIndex = 11;
@@ -458,14 +566,18 @@
             // dgv_CuotasSociales
             // 
             this.dgv_CuotasSociales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_CuotasSociales.Location = new System.Drawing.Point(9, 209);
+            this.dgv_CuotasSociales.Location = new System.Drawing.Point(224, 50);
             this.dgv_CuotasSociales.Name = "dgv_CuotasSociales";
-            this.dgv_CuotasSociales.Size = new System.Drawing.Size(560, 188);
+            this.dgv_CuotasSociales.Size = new System.Drawing.Size(560, 366);
             this.dgv_CuotasSociales.TabIndex = 0;
+            this.dgv_CuotasSociales.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CuotasSociales_CellMouseClick);
             // 
             // PagSocios
             // 
             this.PagSocios.BackColor = System.Drawing.SystemColors.Control;
+            this.PagSocios.Controls.Add(this.label23);
+            this.PagSocios.Controls.Add(this.txt_SocioBorrar);
+            this.PagSocios.Controls.Add(this.label19);
             this.PagSocios.Controls.Add(this.btn_ReporteSocios);
             this.PagSocios.Controls.Add(this.txt_Socio_SocioCod);
             this.PagSocios.Controls.Add(this.txt_MontoMes);
@@ -498,11 +610,38 @@
             this.PagSocios.TabIndex = 0;
             this.PagSocios.Text = "Socios";
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(670, 18);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(62, 13);
+            this.label23.TabIndex = 32;
+            this.label23.Text = "Socio_Cod:";
+            // 
+            // txt_SocioBorrar
+            // 
+            this.txt_SocioBorrar.Location = new System.Drawing.Point(673, 36);
+            this.txt_SocioBorrar.MaxLength = 5;
+            this.txt_SocioBorrar.Name = "txt_SocioBorrar";
+            this.txt_SocioBorrar.Size = new System.Drawing.Size(100, 20);
+            this.txt_SocioBorrar.TabIndex = 31;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(621, 167);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(99, 13);
+            this.label19.TabIndex = 30;
+            this.label19.Text = "Imprimir Reporte";
+            // 
             // btn_ReporteSocios
             // 
             this.btn_ReporteSocios.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_ReporteSocios.Image = global::IEFIPrgII.Properties.Resources.printer_78322;
-            this.btn_ReporteSocios.Location = new System.Drawing.Point(726, 34);
+            this.btn_ReporteSocios.Image = ((System.Drawing.Image)(resources.GetObject("btn_ReporteSocios.Image")));
+            this.btn_ReporteSocios.Location = new System.Drawing.Point(726, 154);
             this.btn_ReporteSocios.Name = "btn_ReporteSocios";
             this.btn_ReporteSocios.Size = new System.Drawing.Size(37, 39);
             this.btn_ReporteSocios.TabIndex = 27;
@@ -512,6 +651,7 @@
             // txt_Socio_SocioCod
             // 
             this.txt_Socio_SocioCod.Location = new System.Drawing.Point(7, 30);
+            this.txt_Socio_SocioCod.MaxLength = 5;
             this.txt_Socio_SocioCod.Name = "txt_Socio_SocioCod";
             this.txt_Socio_SocioCod.Size = new System.Drawing.Size(100, 20);
             this.txt_Socio_SocioCod.TabIndex = 26;
@@ -582,7 +722,7 @@
             // 
             // btn_BorrarSocio
             // 
-            this.btn_BorrarSocio.Location = new System.Drawing.Point(574, 115);
+            this.btn_BorrarSocio.Location = new System.Drawing.Point(681, 65);
             this.btn_BorrarSocio.Name = "btn_BorrarSocio";
             this.btn_BorrarSocio.Size = new System.Drawing.Size(92, 42);
             this.btn_BorrarSocio.TabIndex = 21;
@@ -592,7 +732,7 @@
             // 
             // btn_ModificarSocio
             // 
-            this.btn_ModificarSocio.Location = new System.Drawing.Point(574, 66);
+            this.btn_ModificarSocio.Location = new System.Drawing.Point(430, 118);
             this.btn_ModificarSocio.Name = "btn_ModificarSocio";
             this.btn_ModificarSocio.Size = new System.Drawing.Size(92, 43);
             this.btn_ModificarSocio.TabIndex = 20;
@@ -602,7 +742,7 @@
             // 
             // btn_CargarSocio
             // 
-            this.btn_CargarSocio.Location = new System.Drawing.Point(574, 20);
+            this.btn_CargarSocio.Location = new System.Drawing.Point(304, 121);
             this.btn_CargarSocio.Name = "btn_CargarSocio";
             this.btn_CargarSocio.Size = new System.Drawing.Size(92, 40);
             this.btn_CargarSocio.TabIndex = 19;
@@ -718,10 +858,11 @@
             // dgv_Socios
             // 
             this.dgv_Socios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Socios.Location = new System.Drawing.Point(7, 178);
+            this.dgv_Socios.Location = new System.Drawing.Point(7, 199);
             this.dgv_Socios.Name = "dgv_Socios";
             this.dgv_Socios.Size = new System.Drawing.Size(756, 217);
             this.dgv_Socios.TabIndex = 0;
+            this.dgv_Socios.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Socios_CellMouseClick);
             // 
             // tabControl1
             // 
@@ -739,6 +880,7 @@
             // PagProvincias
             // 
             this.PagProvincias.BackColor = System.Drawing.SystemColors.Control;
+            this.PagProvincias.Controls.Add(this.label22);
             this.PagProvincias.Controls.Add(this.button1);
             this.PagProvincias.Controls.Add(this.dgv_Provincias);
             this.PagProvincias.Location = new System.Drawing.Point(4, 22);
@@ -748,11 +890,21 @@
             this.PagProvincias.TabIndex = 5;
             this.PagProvincias.Text = "Provincias";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(642, 19);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(99, 13);
+            this.label22.TabIndex = 31;
+            this.label22.Text = "Imprimir Reporte";
+            // 
             // button1
             // 
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Image = global::IEFIPrgII.Properties.Resources.printer_78322;
-            this.button1.Location = new System.Drawing.Point(269, 6);
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(747, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(37, 39);
             this.button1.TabIndex = 30;
@@ -762,10 +914,19 @@
             // dgv_Provincias
             // 
             this.dgv_Provincias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Provincias.Location = new System.Drawing.Point(0, 6);
+            this.dgv_Provincias.Location = new System.Drawing.Point(291, 6);
             this.dgv_Provincias.Name = "dgv_Provincias";
-            this.dgv_Provincias.Size = new System.Drawing.Size(263, 388);
+            this.dgv_Provincias.Size = new System.Drawing.Size(263, 410);
             this.dgv_Provincias.TabIndex = 1;
+            // 
+            // epv_MontoMes
+            // 
+            this.epv_MontoMes.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.epv_MontoMes.ContainerControl = this;
+            // 
+            // epv_MontoCuota
+            // 
+            this.epv_MontoCuota.ContainerControl = this;
             // 
             // FormSocios
             // 
@@ -795,7 +956,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Socios)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.PagProvincias.ResumeLayout(false);
+            this.PagProvincias.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epv_MontoMes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epv_MontoCuota)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -868,5 +1032,19 @@
         private System.Windows.Forms.Button btn_ReporteBarrios;
         private System.Windows.Forms.Button btn_ReporteCuotas;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ErrorProvider epv_MontoMes;
+        private System.Windows.Forms.ErrorProvider epv_MontoCuota;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txt_SocioBorrar;
+        private System.Windows.Forms.TextBox txt_CuotaBorrar;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txt_AnioBorrar;
+        private System.Windows.Forms.ComboBox cmb_MesBorrar;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
     }
 }

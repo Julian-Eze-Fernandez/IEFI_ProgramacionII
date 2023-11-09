@@ -89,7 +89,7 @@ namespace IEFIPrgII
             dgv_Barrios.Columns.Add("0", "Codigo");
             dgv_Barrios.Columns.Add("1", "Nombre");
             dgv_Barrios.Columns.Add("2", "Cod_Provincia");
-            
+
             dgv_Barrios.Columns[0].Width = 100;
             dgv_Barrios.Columns[1].Width = 100;
             dgv_Barrios.Columns[2].Width = 100;
@@ -135,11 +135,13 @@ namespace IEFIPrgII
         }
         private void btn_CargarSocio_Click(object sender, EventArgs e)
         {
+
             int nGrabados = -1;
 
             string codigoSocio = txt_Socio_SocioCod.Text;
 
-            if (SociosCamposNoVacios() && MontoNoCaracteres())
+
+            if (SociosCamposNoVacios() && MontoMesNoCaracteres())
             {
                 if (objNegSocio.ExisteCodigoSocio(codigoSocio))
                 {
@@ -150,7 +152,7 @@ namespace IEFIPrgII
                 {
                     Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text, txt_NombreSoc.Text, txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
                                 txt_DomicilioSoc.Text, cmbbox_BarrCod.Text, decimal.Parse(txt_MontoMes.Text),
-                                DateTimePick_FecAlt.Value, DateTimePick_FecBaj.Value, char.Parse(cmbBox_Activo.Text));
+                                DateTimePick_FecAlt.Value, char.Parse(cmbBox_Activo.Text));
 
 
                     nGrabados = objNegSocio.abmSocios("Alta", NuevoSocio);
@@ -166,7 +168,7 @@ namespace IEFIPrgII
                         LimpiarSocio();
                     }
                 }
-            }          
+            }
 
         }
         private void btn_ModificarSocio_Click(object sender, EventArgs e)
@@ -193,17 +195,26 @@ namespace IEFIPrgII
         }
         private void btn_BorrarSocio_Click(object sender, EventArgs e)
         {
-            string codigoSocio = txt_Socio_SocioCod.Text;
+            string codigoSocio = txt_SocioBorrar.Text;
 
-            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el Socio numero " + txt_Socio_SocioCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el Socio numero " + txt_SocioBorrar.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resultado == DialogResult.Yes)
             {
                 int nGrabados = -1;
-                Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text);
-                nGrabados = objNegSocio.abmSocios("Baja", NuevoSocio);
-                LLenarDGVSocios();
-                LimpiarSocio();
-                txt_Socio_SocioCod.Text = "";
+                Socio NuevoSocio = new Socio(txt_SocioBorrar.Text);
+
+                if (!objNegSocio.ExisteCodigoSocio(txt_SocioBorrar.Text))
+                {
+                    MessageBox.Show(this, $"No existe el socio codigo {txt_SocioBorrar.Text}.", "Error", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    nGrabados = objNegSocio.abmSocios("Baja", NuevoSocio);
+                    LLenarDGVSocios();
+                    LimpiarSocio();
+                    txt_SocioBorrar.Text = "";
+                }
+
 
 
             }
@@ -226,6 +237,19 @@ namespace IEFIPrgII
             DateTimePick_FecAlt.Text = string.Empty;
             DateTimePick_FecBaj.Text = string.Empty;
 
+        }
+        private void dgv_Socios_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            txt_Socio_SocioCod.Text = dgv_Socios.CurrentRow.Cells[0].Value.ToString();
+            txt_NombreSoc.Text = dgv_Socios.CurrentRow.Cells[1].Value.ToString();
+            txt_ApellidoSoc.Text = dgv_Socios.CurrentRow.Cells[2].Value.ToString();
+            cmbBox_Sexo.Text = dgv_Socios.CurrentRow.Cells[3].Value.ToString();
+            txt_DomicilioSoc.Text = dgv_Socios.CurrentRow.Cells[4].Value.ToString();
+            cmbbox_BarrCod.Text = dgv_Socios.CurrentRow.Cells[5].Value.ToString();
+            txt_MontoMes.Text = dgv_Socios.CurrentRow.Cells[6].Value.ToString();
+            DateTimePick_FecAlt.Text = dgv_Socios.CurrentRow.Cells[7].Value.ToString();
+            DateTimePick_FecBaj.Text = dgv_Socios.CurrentRow.Cells[8].Value.ToString();
+            cmbBox_Activo.Text = dgv_Socios.CurrentRow.Cells[9].Value.ToString();
         }
 
         //Cuotas Sociales
@@ -253,7 +277,7 @@ namespace IEFIPrgII
 
             string codigoSocio = txt_Cuota_SocioCod.Text;
 
-            if (CuotasCamposNoVacios())
+            if (CuotasCamposNoVacios() && MontoCuotaNoCaracteres())
             {
                 if (objNegCuotaSocial.ExisteCodigoSocio(codigoSocio))
                 {
@@ -304,25 +328,36 @@ namespace IEFIPrgII
         }
         private void btn_BorrarCuota_Click(object sender, EventArgs e)
         {
-            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la cuota del socio numero " + txt_Cuota_SocioCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la cuota del socio numero " + txt_CuotaBorrar.Text + " del año " + txt_AnioBorrar.Text + " en el mes " + cmb_MesBorrar + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resultado == DialogResult.Yes)
             {
                 int nGrabados = -1;
-                Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text, txt_Anio.Text, cmbBox_Mes.Text);
+                Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_CuotaBorrar.Text, txt_AnioBorrar.Text, cmb_MesBorrar.Text);
                 nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Borrar", NuevaCuotaSocial);
                 LLenarDGVCuotasSociales();
                 LimpiarCuota_Social();
-                txt_Cuota_SocioCod.Text = "";
+                txt_CuotaBorrar.Text = "";
 
             }
         }
-        private void LimpiarCuota_Social() 
+        private void LimpiarCuota_Social()
         {
             txt_Cuota_SocioCod.Text = string.Empty;
             txt_Anio.Text = string.Empty;
             cmbBox_Mes.SelectedIndex = -1;
             txt_MontoCuota.Text = string.Empty;
-            cmbBox_Pagada .SelectedIndex = -1;
+            cmbBox_Pagada.SelectedIndex = -1;
+            txt_SocioBorrar.Text = string.Empty;
+            txt_AnioBorrar.Text = string.Empty;
+            cmbBox_Mes.SelectedIndex = -1;
+        }
+        private void dgv_CuotasSociales_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            txt_Cuota_SocioCod.Text = dgv_CuotasSociales.CurrentRow.Cells[0].Value.ToString();
+            txt_Anio.Text = dgv_CuotasSociales.CurrentRow.Cells[1].Value.ToString();
+            cmbBox_Mes.Text = dgv_CuotasSociales.CurrentRow.Cells[2].Value.ToString();
+            txt_MontoCuota.Text = dgv_CuotasSociales.CurrentRow.Cells[3].Value.ToString();
+            cmbBox_Pagada.Text = dgv_CuotasSociales.CurrentRow.Cells[4].Value.ToString();
         }
 
         //Barrios
@@ -346,10 +381,13 @@ namespace IEFIPrgII
         }
         private void btn_CargarBarrios_Click(object sender, EventArgs e)
         {
+
+
             int nGrabados = -1;
 
             if (BarriosCamposNoVacios())
             {
+
                 Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(cmbBox_Provincias.Text));
 
 
@@ -380,7 +418,7 @@ namespace IEFIPrgII
                 MessageBox.Show("El Barrio fue Modificado con éxito", "Aviso");
                 LimpiarBarrios();
                 LLenarDGVBarrios();
-                
+
                 txt_BarrCod.Enabled = true;
 
             }
@@ -405,7 +443,13 @@ namespace IEFIPrgII
         {
             txt_BarrCod.Text = string.Empty;
             txt_BarrNombre.Text = string.Empty;
-            cmbBox_Provincias.SelectedIndex = -1;    
+            cmbBox_Provincias.SelectedIndex = -1;
+        }
+        private void dgv_Barrios_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            txt_BarrCod.Text = dgv_Barrios.CurrentRow.Cells[0].Value.ToString();
+            txt_BarrNombre.Text = dgv_Barrios.CurrentRow.Cells[1].Value.ToString();
+            cmbBox_Provincias.Text = dgv_Barrios.CurrentRow.Cells[2].Value.ToString();
         }
 
         //Provincias
@@ -501,7 +545,7 @@ namespace IEFIPrgII
         private bool CuotasCamposNoVacios()
         {
             // Agrega todos los campos que deseas validar aquí.
-            Control[] campos = { txt_Cuota_SocioCod, txt_Anio, cmbBox_Mes, txt_MontoCuota, cmbBox_Pagada};
+            Control[] campos = { txt_Cuota_SocioCod, txt_Anio, cmbBox_Mes, txt_MontoCuota, cmbBox_Pagada };
 
             foreach (Control campo in campos)
             {
@@ -552,7 +596,7 @@ namespace IEFIPrgII
 
             return true; // Todos los campos están completos, la validación pasa.
         }
-        private bool MontoNoCaracteres()
+        private bool MontoMesNoCaracteres()
         {
             TextBox[] campos = { txt_MontoMes };
 
@@ -560,7 +604,25 @@ namespace IEFIPrgII
             {
                 if (!EsNumero(campo.Text))
                 {
-                    MessageBox.Show(this, "Por favor, numeros en el monto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(this, "Por favor, numeros en el monto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    epv_MontoMes.SetError(txt_MontoMes, "No se aceptan caracteres en este campo.");
+                    return false; // Devuelve false si al menos uno de los campos contiene caracteres no numéricos.
+                }
+            }
+
+            return true; // Devuelve true si ambos campos solo contienen números.
+        }
+
+        private bool MontoCuotaNoCaracteres()
+        {
+            TextBox[] campos = { txt_MontoMes, txt_MontoCuota };
+
+            foreach (TextBox campo in campos)
+            {
+                if (!EsNumero(campo.Text))
+                {
+                    //MessageBox.Show(this, "Por favor, numeros en el monto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    epv_MontoCuota.SetError(txt_MontoCuota, "No se aceptan caracteres en este campo.");
                     return false; // Devuelve false si al menos uno de los campos contiene caracteres no numéricos.
                 }
             }
@@ -579,7 +641,6 @@ namespace IEFIPrgII
 
             return true; // Devuelve true si todos los caracteres son numéricos.
         }
-
         private void btn_ReporteSocios_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -591,7 +652,6 @@ namespace IEFIPrgII
                 MessageBox.Show("Reporte generado exitosamente!");
             }
         }
-
         private void btn_ReporteCuotas_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -603,7 +663,6 @@ namespace IEFIPrgII
                 MessageBox.Show("Reporte generado exitosamente!");
             }
         }
-
         private void btn_ReporteBarrios_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -615,7 +674,6 @@ namespace IEFIPrgII
                 MessageBox.Show("Reporte generado exitosamente!");
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -626,6 +684,6 @@ namespace IEFIPrgII
                 CrearReportePdf(dgv_Provincias, outputPath);
                 MessageBox.Show("Reporte generado exitosamente!");
             }
-        }
+        }       
     }
 }
