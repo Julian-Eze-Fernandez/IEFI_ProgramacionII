@@ -22,5 +22,10 @@ namespace CapaNegocio
         {
             return DatosObjSocio.listadoSocios(cual);
         }
+
+        public bool ExisteCodigoSocio(string codigoSocio)
+        {
+            return DatosObjSocio.ExisteCodigoSocio(codigoSocio);
+        }
     }
 }

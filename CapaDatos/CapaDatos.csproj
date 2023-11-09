@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AdminisBarrios.cs" />
     <Compile Include="AdminisCuotaSocial.cs" />
+    <Compile Include="AdminisProvincias.cs" />
     <Compile Include="AdminisSocio.cs" />
     <Compile Include="DatosConexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -34,6 +34,20 @@ namespace Entity
             socio_cod = soc_cod;
         }
 
+        public Socio(string soc_cod, string nom, string ape, char sex_cod, string dom, string bar_cod,
+            decimal mon_mes, DateTime fec_alt, char act)
+        {
+            socio_cod = soc_cod;
+            nombre = nom;
+            apellido = ape;
+            sexo_cod = sex_cod;
+            domicilio = dom;
+            barr_cod = bar_cod;
+            monto_mes = mon_mes;
+            fecha_alta = fec_alt;
+            activo = act;
+        }
+
         public Socio(string soc_cod, string nom, string ape, char sex_cod, string dom, string bar_cod, 
                     decimal mon_mes, DateTime fec_alt, DateTime fec_baj, char act)
         {

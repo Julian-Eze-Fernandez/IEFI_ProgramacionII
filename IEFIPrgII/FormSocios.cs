@@ -18,6 +18,7 @@ namespace IEFIPrgII
         NegSocio objNegSocio = new NegSocio();
         NegCuotaSocial objNegCuotaSocial = new NegCuotaSocial();
         NegBarrio objNegBarrio = new NegBarrio();
+        NegProvincia objProvincia = new NegProvincia();
 
 
         public FormSocios()
@@ -28,6 +29,7 @@ namespace IEFIPrgII
             LLenarDGVCuotasSociales();
             LLenarDGVBarrios();
             LlenarCombos();
+
         }
 
         private void FormSocios_Load(object sender, EventArgs e)
@@ -40,7 +42,6 @@ namespace IEFIPrgII
             //this.sexosTableAdapter.Fill(this.iEFIPrgDataSet.sexos);
 
         }
-
         private void CrearDGVS()
         {
             // Data Grid View SOCIOS
@@ -90,12 +91,15 @@ namespace IEFIPrgII
             dgv_Barrios.Columns[2].Width = 100;
             
         }
-
         void LlenarCombos()
         { //llena un combo desde una lista con descripcion y código
             cmbbox_BarrCod.DataSource = objNegBarrio.ObtenerBarrios(); // se define el origen con la Lista
             cmbbox_BarrCod.DisplayMember = "Barr_Cod";
             cmbbox_BarrCod.ValueMember = "Barr_Cod";
+
+            cmbBox_Provincias.DataSource = objProvincia.ObtenerProvincias(); // se define el origen con la Lista
+            cmbBox_Provincias.DisplayMember = "Prov_Cod";
+            cmbBox_Provincias.ValueMember = "Prov_Cod";
 
         }
 
@@ -122,34 +126,47 @@ namespace IEFIPrgII
         {
             int nGrabados = -1;
 
-            Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text,txt_NombreSoc.Text,txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
-                                        txt_DomicilioSoc.Text, cmbbox_BarrCod.Text, decimal.Parse(txt_MontoMes.Text),
-                                        DateTimePick_FecAlt.Value, DateTimePick_FecBaj.Value, char.Parse(cmbBox_Activo.Text));
+            string codigoSocio = txt_Socio_SocioCod.Text;
 
-
-            nGrabados = objNegSocio.abmSocios("Alta", NuevoSocio);
-
-            if (nGrabados == -1)
+            if (SociosCamposNoVacios())
             {
-                MessageBox.Show("No se pudo grabar el socio en el sistema");
-            }
-            else
-            {
-                MessageBox.Show("Socio Instanciado");
-                LLenarDGVSocios();
-                LimpiarCuota_Social();
-            }
+                if (objNegSocio.ExisteCodigoSocio(codigoSocio))
+                {
+                    MessageBox.Show(this, "El código de socio ya existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+                else
+                {
+                    Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text, txt_NombreSoc.Text, txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
+                                txt_DomicilioSoc.Text, cmbbox_BarrCod.Text, decimal.Parse(txt_MontoMes.Text),
+                                DateTimePick_FecAlt.Value, DateTimePick_FecBaj.Value, char.Parse(cmbBox_Activo.Text));
+
+
+                    nGrabados = objNegSocio.abmSocios("Alta", NuevoSocio);
+
+                    if (nGrabados == -1)
+                    {
+                        MessageBox.Show("No se pudo grabar el socio en el sistema");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Socio Instanciado");
+                        LLenarDGVSocios();
+                        LimpiarCuota_Social();
+                    }
+                }
+            }          
+
         }
-
         private void btn_ModificarSocio_Click(object sender, EventArgs e)
         {
             int nResultado = -1;
+
             Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text, txt_NombreSoc.Text, txt_ApellidoSoc.Text, char.Parse(cmbBox_Sexo.Text),
                             txt_DomicilioSoc.Text, cmbbox_BarrCod.Text, decimal.Parse(txt_MontoMes.Text),
                             DateTimePick_FecAlt.Value, DateTimePick_FecBaj.Value, char.Parse(cmbBox_Activo.Text));
 
             nResultado = objNegSocio.abmSocios("Modificar", NuevoSocio); //invoco a la capa de negocio
-
 
             if (nResultado != -1)
             {
@@ -161,25 +178,28 @@ namespace IEFIPrgII
 
             }
             else
-                MessageBox.Show("Se produjo un error al intentar modificar el socio", "Error");
+                MessageBox.Show("Se produjo un error al intentar modificar el socio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-    
-
         private void btn_BorrarSocio_Click(object sender, EventArgs e)
         {
+            string codigoSocio = txt_Socio_SocioCod.Text;
+
             DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el Socio numero " + txt_Socio_SocioCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resultado == DialogResult.Yes)
             {
                 int nGrabados = -1;
                 Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text);
-                nGrabados = objNegSocio.abmSocios("Borrar", NuevoSocio);
+                nGrabados = objNegSocio.abmSocios("Baja", NuevoSocio);
                 LLenarDGVSocios();
                 txt_Socio_SocioCod.Text = "";
 
             }
+            else if (resultado == DialogResult.No)
+            {
+                LimpiarSocio();
+            }
 
         }
-
         private void LimpiarSocio()
         {
             txt_NombreSoc.Text = string.Empty;
@@ -190,8 +210,10 @@ namespace IEFIPrgII
             txt_MontoMes.Text = string.Empty;
             cmbBox_Activo.Text = string.Empty;
             txt_Socio_SocioCod.Text = string.Empty;
-        }
+            DateTimePick_FecAlt.Text = string.Empty;
+            DateTimePick_FecBaj.Text = string.Empty;
 
+        }
 
         //Cuotas Sociales
         private void LLenarDGVCuotasSociales()
@@ -212,40 +234,40 @@ namespace IEFIPrgII
             else
                 MessageBox.Show("No hay Cuotas Sociales cargadas en el sistema.");
         }
-
         private void btn_CargarCuota_Click(object sender, EventArgs e)
         {
             int nGrabados = -1;
 
             string codigoSocio = txt_Cuota_SocioCod.Text;
 
-            if (objNegCuotaSocial.ExisteCodigoSocio(codigoSocio))
+            if (CuotasCamposNoVacios())
             {
-                // El código de socio existe, puedes realizar la operación correspondiente.
-                Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text, txt_Anio.Text, cmbBox_Mes.Text,
-                                                            decimal.Parse(txt_MontoCuota.Text), char.Parse(cmbBox_Pagada.Text));
-
-                nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Alta", NuevaCuotaSocial);
-
-                if (nGrabados == -1)
+                if (objNegCuotaSocial.ExisteCodigoSocio(codigoSocio))
                 {
-                    MessageBox.Show("No se pudo grabar la cuota en el sistema");
+                    // El código de socio existe, puedes realizar la operación correspondiente.
+                    Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text, txt_Anio.Text, cmbBox_Mes.Text,
+                                                                decimal.Parse(txt_MontoCuota.Text), char.Parse(cmbBox_Pagada.Text));
+
+                    nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Alta", NuevaCuotaSocial);
+
+                    if (nGrabados == -1)
+                    {
+                        MessageBox.Show("No se pudo grabar la cuota en el sistema");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cuota Social Instanciada");
+                        LLenarDGVCuotasSociales();
+                        LimpiarCuota_Social();
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Cuota Social Instanciada");
-                    LLenarDGVCuotasSociales();
-                    LimpiarCuota_Social();
+                    // El código de socio no existe, muestra un mensaje de error o realiza otra acción.
+                    MessageBox.Show("El codigo del socio ingresado no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
-            {
-                // El código de socio no existe, muestra un mensaje de error o realiza otra acción.
-                MessageBox.Show("ERROR, EL CODIGO DEL SOCIO INGRESADO NO EXISTE.");
-            }
-
         }
-
         private void btn_ModificarCuota_Click(object sender, EventArgs e)
         {
             int nResultado = -1;
@@ -267,7 +289,6 @@ namespace IEFIPrgII
             else
                 MessageBox.Show("Se produjo un error al intentar modificar la cuota", "Error");
         }
-
         private void btn_BorrarCuota_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la cuota del socio numero " + txt_Cuota_SocioCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -309,35 +330,33 @@ namespace IEFIPrgII
             else
                 MessageBox.Show("No hay Barrios cargados en el sistema.");
         }
-
         private void btn_CargarBarrios_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Barrio Instanciado");
-
             int nGrabados = -1;
 
-            Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(txt_ProvCod.Text));
-
-
-            nGrabados = objNegBarrio.abmBarrios("Alta", NuevoBarrio);
-
-            if (nGrabados == -1)
+            if (BarriosCamposNoVacios())
             {
-                MessageBox.Show("No se pudo grabar el barrio en el sistema");
-            }
-            else
-            {
-                MessageBox.Show("Barrio Instanciado");
-                LLenarDGVBarrios();
-                LimpiarBarrios();
-            }
+                Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(cmbBox_Provincias.Text));
 
+
+                nGrabados = objNegBarrio.abmBarrios("Alta", NuevoBarrio);
+
+                if (nGrabados == -1)
+                {
+                    MessageBox.Show("No se pudo grabar el barrio en el sistema");
+                }
+                else
+                {
+                    MessageBox.Show("Barrio Instanciado");
+                    LLenarDGVBarrios();
+                    LimpiarBarrios();
+                }
+            }
         }
-
         private void btn_ModificarBarrios_Click(object sender, EventArgs e)
         {
             int nResultado = -1;
-            Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(txt_ProvCod.Text));
+            Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text, txt_BarrNombre.Text, char.Parse(cmbBox_Provincias.Text));
 
             nResultado = objNegBarrio.abmBarrios("Modificar", NuevoBarrio); //invoco a la capa de negocio
 
@@ -354,7 +373,6 @@ namespace IEFIPrgII
             else
                 MessageBox.Show("Se produjo un error al intentar modificar el barrio", "Error");
         }
-
         private void btn_BorrarBarrios_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el Barrio con codigo " + txt_BarrCod.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -372,9 +390,92 @@ namespace IEFIPrgII
         {
             txt_BarrCod.Text = string.Empty;
             txt_BarrNombre.Text = string.Empty;
-            txt_ProvCod.Text = string.Empty;    
+            cmbBox_Provincias.Text = string.Empty;    
         }
 
+        //Validaciones
+        private bool SociosCamposNoVacios()
+        {
+            // Agrega todos los campos que deseas validar aquí.
+            Control[] campos = { txt_Socio_SocioCod, txt_NombreSoc, txt_ApellidoSoc, txt_DomicilioSoc, cmbbox_BarrCod, cmbBox_Sexo, cmbBox_Activo, txt_MontoMes };
 
+            foreach (Control campo in campos)
+            {
+                if (campo is TextBox textBox)
+                {
+                    if (string.IsNullOrEmpty(textBox.Text))
+                    {
+                        MessageBox.Show(this, "Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false; // Al menos un campo está vacío, la validación falla.
+                    }
+                }
+                else if (campo is ComboBox comboBox)
+                {
+                    if (comboBox.SelectedIndex == -1)
+                    {
+                        MessageBox.Show(this, "Por favor, seleccione una opción en todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false; // Al menos un campo está sin selección, la validación falla.
+                    }
+                }
+            }
+
+            return true; // Todos los campos están completos, la validación pasa.
+        }
+
+        private bool CuotasCamposNoVacios()
+        {
+            // Agrega todos los campos que deseas validar aquí.
+            Control[] campos = { txt_Cuota_SocioCod, txt_Anio, cmbBox_Mes, txt_MontoCuota, cmbBox_Pagada};
+
+            foreach (Control campo in campos)
+            {
+                if (campo is TextBox textBox)
+                {
+                    if (string.IsNullOrEmpty(textBox.Text))
+                    {
+                        MessageBox.Show(this, "Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false; // Al menos un campo está vacío, la validación falla.
+                    }
+                }
+                else if (campo is ComboBox comboBox)
+                {
+                    if (comboBox.SelectedIndex == -1)
+                    {
+                        MessageBox.Show(this, "Por favor, seleccione una opción en todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false; // Al menos un campo está sin selección, la validación falla.
+                    }
+                }
+            }
+
+            return true; // Todos los campos están completos, la validación pasa.
+        }
+
+        private bool BarriosCamposNoVacios()
+        {
+            // Agrega todos los campos que deseas validar aquí.
+            Control[] campos = { txt_BarrCod, txt_BarrNombre, cmbBox_Provincias };
+
+            foreach (Control campo in campos)
+            {
+                if (campo is TextBox textBox)
+                {
+                    if (string.IsNullOrEmpty(textBox.Text))
+                    {
+                        MessageBox.Show(this, "Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false; // Al menos un campo está vacío, la validación falla.
+                    }
+                }
+                else if (campo is ComboBox comboBox)
+                {
+                    if (comboBox.SelectedIndex == -1)
+                    {
+                        MessageBox.Show(this, "Por favor, seleccione una opción en todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false; // Al menos un campo está sin selección, la validación falla.
+                    }
+                }
+            }
+
+            return true; // Todos los campos están completos, la validación pasa.
+        }
     }
 }

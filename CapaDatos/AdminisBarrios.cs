@@ -100,7 +100,7 @@ namespace CapaDatos
             }
             catch (Exception e)
             {
-                throw new Exception("Error al listar Barrios", e);
+                throw new Exception("Error al listar Provincias", e);
             }
             finally
             {

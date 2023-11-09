@@ -19,15 +19,23 @@ namespace CapaDatos
 
             if (accion == "Alta") // para agregar un producto nuevo
             {
-                orden = $"insert into socios (Socio_Cod, Nombre, Apellido, Sexo_Cod, Domicilio, Barr_Cod, Monto_Mes, Fecha_Alta, Fecha_Baja, Activo) values ('{objSocio.Socio_Cod}', '{objSocio.Nombre}', '{objSocio.Apellido}', '{objSocio.Sexo_Cod}', '{objSocio.Domicilio}' , '{objSocio.Barr_Cod}', {objSocio.Monto_Mes}, '{objSocio.Fecha_Alta}','{objSocio.Fecha_Baja}','{objSocio.Activo}' );";
+                orden = $"insert into socios (Socio_Cod, Nombre, Apellido, Sexo_Cod, Domicilio, Barr_Cod, Monto_Mes, Fecha_Alta, Fecha_Baja, Activo) values ('{objSocio.Socio_Cod}', '{objSocio.Nombre}', '{objSocio.Apellido}', '{objSocio.Sexo_Cod}', '{objSocio.Domicilio}' , '{objSocio.Barr_Cod}', {objSocio.Monto_Mes}, '{objSocio.Fecha_Alta}', '{objSocio.Fecha_Baja}', '{objSocio.Activo}' );";
             }
 
             if (accion == "Modificar") // para modificar un existente
+            {
                 orden = $"update socios set Nombre='{objSocio.Nombre}', Apellido='{objSocio.Apellido}', Sexo_Cod='{objSocio.Sexo_Cod}', Domicilio='{objSocio.Domicilio}', Barr_Cod='{objSocio.Barr_Cod}', Monto_Mes={objSocio.Monto_Mes}, Fecha_Alta='{objSocio.Fecha_Alta}', Fecha_Baja='{objSocio.Fecha_Baja}', Activo='{objSocio.Activo}' WHERE socio_cod = '{objSocio.Socio_Cod}';";
-
+            }
 
             if (accion == "Borrar") // para borrar un existente
+            {
                 orden = $"delete from socios where Socio_Cod =  '{objSocio.Socio_Cod}';";
+            }
+
+            if (accion == "Baja")
+            {
+                orden = $"update socios set Activo = 'N' WHERE Socio_Cod = '{objSocio.Socio_Cod}';";
+            }
 
 
             SqlCommand cmd = new SqlCommand(orden, conexion);
@@ -80,5 +88,28 @@ namespace CapaDatos
             return ds;
         }
 
+        public bool ExisteCodigoSocio(string codigoSocio)
+        {
+            string consulta = "SELECT COUNT(*) FROM socios WHERE socio_cod = @codigoSocio";
+            SqlCommand cmd = new SqlCommand(consulta, conexion);
+            cmd.Parameters.AddWithValue("@codigoSocio", codigoSocio);
+
+            try
+            {
+                Abrirconexion();
+                int count = (int)cmd.ExecuteScalar(); // Obtenemos el resultado del conteo de filas
+                return count > 0; // Devolvemos true si el código de socio existe en la tabla
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al verificar la existencia del código de socio.", e);
+            }
+            finally
+            {
+                Cerrarconexion();
+                cmd.Dispose();
+            }
+
+        }
     }
 }
