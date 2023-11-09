@@ -13,6 +13,11 @@ namespace CapaNegocio
     {
         AdminisProvincias DatosObjProvincia = new AdminisProvincias();
 
+        public DataSet listadoProvincias(string cual)
+        {
+            return DatosObjProvincia.listadoProvincias(cual);
+        }
+
         public List<Provincia> ObtenerProvincias()
         {
             return DatosObjProvincia.ObtenerProvincias();

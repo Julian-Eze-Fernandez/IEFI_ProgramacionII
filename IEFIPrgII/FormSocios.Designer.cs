@@ -90,6 +90,8 @@
             this.dgv_Socios = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.cmbBox_Provincias = new System.Windows.Forms.ComboBox();
+            this.PagProvincias = new System.Windows.Forms.TabPage();
+            this.dgv_Provincias = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.barriosBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iEFIPrgDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.provinciasBindingSource)).BeginInit();
@@ -103,6 +105,8 @@
             this.PagSocios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Socios)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.PagProvincias.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).BeginInit();
             this.SuspendLayout();
             // 
             // barriosBindingSource
@@ -244,7 +248,7 @@
             this.dgv_Barrios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Barrios.Location = new System.Drawing.Point(349, 6);
             this.dgv_Barrios.Name = "dgv_Barrios";
-            this.dgv_Barrios.Size = new System.Drawing.Size(413, 388);
+            this.dgv_Barrios.Size = new System.Drawing.Size(361, 388);
             this.dgv_Barrios.TabIndex = 0;
             // 
             // PagCuotas
@@ -405,7 +409,7 @@
             this.dgv_CuotasSociales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_CuotasSociales.Location = new System.Drawing.Point(9, 209);
             this.dgv_CuotasSociales.Name = "dgv_CuotasSociales";
-            this.dgv_CuotasSociales.Size = new System.Drawing.Size(762, 188);
+            this.dgv_CuotasSociales.Size = new System.Drawing.Size(560, 188);
             this.dgv_CuotasSociales.TabIndex = 0;
             // 
             // PagSocios
@@ -661,6 +665,7 @@
             this.tabControl1.Controls.Add(this.PagSocios);
             this.tabControl1.Controls.Add(this.PagCuotas);
             this.tabControl1.Controls.Add(this.PagBarrios);
+            this.tabControl1.Controls.Add(this.PagProvincias);
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -689,6 +694,25 @@
             this.cmbBox_Provincias.Size = new System.Drawing.Size(100, 21);
             this.cmbBox_Provincias.TabIndex = 28;
             // 
+            // PagProvincias
+            // 
+            this.PagProvincias.Controls.Add(this.dgv_Provincias);
+            this.PagProvincias.Location = new System.Drawing.Point(4, 22);
+            this.PagProvincias.Name = "PagProvincias";
+            this.PagProvincias.Padding = new System.Windows.Forms.Padding(3);
+            this.PagProvincias.Size = new System.Drawing.Size(768, 400);
+            this.PagProvincias.TabIndex = 5;
+            this.PagProvincias.Text = "Provincias";
+            this.PagProvincias.UseVisualStyleBackColor = true;
+            // 
+            // dgv_Provincias
+            // 
+            this.dgv_Provincias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Provincias.Location = new System.Drawing.Point(0, 6);
+            this.dgv_Provincias.Name = "dgv_Provincias";
+            this.dgv_Provincias.Size = new System.Drawing.Size(263, 388);
+            this.dgv_Provincias.TabIndex = 1;
+            // 
             // FormSocios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -714,6 +738,8 @@
             this.PagSocios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Socios)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.PagProvincias.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Provincias)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -780,5 +806,7 @@
         private System.Windows.Forms.DataGridView dgv_Socios;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.ComboBox cmbBox_Provincias;
+        private System.Windows.Forms.TabPage PagProvincias;
+        private System.Windows.Forms.DataGridView dgv_Provincias;
     }
 }

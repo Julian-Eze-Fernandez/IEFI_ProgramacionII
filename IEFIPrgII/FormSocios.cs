@@ -28,6 +28,7 @@ namespace IEFIPrgII
             LLenarDGVSocios();
             LLenarDGVCuotasSociales();
             LLenarDGVBarrios();
+            LLenarDGVProvincias();
             LlenarCombos();
 
         }
@@ -89,7 +90,14 @@ namespace IEFIPrgII
             dgv_Barrios.Columns[0].Width = 100;
             dgv_Barrios.Columns[1].Width = 100;
             dgv_Barrios.Columns[2].Width = 100;
-            
+
+            // Data Grid View PROVINCIAS
+            dgv_Provincias.Columns.Add("0", "Codigo");
+            dgv_Provincias.Columns.Add("1", "Nombre");
+
+            dgv_Provincias.Columns[0].Width = 100;
+            dgv_Provincias.Columns[1].Width = 100;
+
         }
         void LlenarCombos()
         { //llena un combo desde una lista con descripcion y código
@@ -393,6 +401,26 @@ namespace IEFIPrgII
             cmbBox_Provincias.Text = string.Empty;    
         }
 
+        //Provincias
+        private void LLenarDGVProvincias()
+        {
+            dgv_Provincias.Rows.Clear();
+
+            DataSet ds = new DataSet();
+            ds = objProvincia.listadoProvincias("Todos");
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    //Lo que quieres mostrar esta en dr[0].ToString(), dr[1].ToString(),etc...
+                    dgv_Provincias.Rows.Add(dr[0].ToString(), dr[1].ToString());
+                }
+            }
+            else
+                MessageBox.Show("No hay Provincias cargadas en el sistema.");
+        }
+
         //Validaciones
         private bool SociosCamposNoVacios()
         {
@@ -421,7 +449,6 @@ namespace IEFIPrgII
 
             return true; // Todos los campos están completos, la validación pasa.
         }
-
         private bool CuotasCamposNoVacios()
         {
             // Agrega todos los campos que deseas validar aquí.
@@ -449,7 +476,6 @@ namespace IEFIPrgII
 
             return true; // Todos los campos están completos, la validación pasa.
         }
-
         private bool BarriosCamposNoVacios()
         {
             // Agrega todos los campos que deseas validar aquí.
