@@ -11,9 +11,11 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using CapaNegocio;
 using Entity;
+using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace IEFIPrgII
 {
@@ -238,6 +240,17 @@ namespace IEFIPrgII
             DateTimePick_FecBaj.Text = string.Empty;
 
         }
+        private void btn_ReporteSocios_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Descargas|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_Socios, outputPath, " Socios ");
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
         private void dgv_Socios_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             txt_Socio_SocioCod.Text = dgv_Socios.CurrentRow.Cells[0].Value.ToString();
@@ -351,6 +364,17 @@ namespace IEFIPrgII
             txt_AnioBorrar.Text = string.Empty;
             cmbBox_Mes.SelectedIndex = -1;
         }
+        private void btn_ReporteCuotas_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_CuotasSociales, outputPath, " Cuotas ");
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
         private void dgv_CuotasSociales_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             txt_Cuota_SocioCod.Text = dgv_CuotasSociales.CurrentRow.Cells[0].Value.ToString();
@@ -445,6 +469,17 @@ namespace IEFIPrgII
             txt_BarrNombre.Text = string.Empty;
             cmbBox_Provincias.SelectedIndex = -1;
         }
+        private void btn_ReporteBarrios_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_Barrios, outputPath, " Barrios ");
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
         private void dgv_Barrios_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             txt_BarrCod.Text = dgv_Barrios.CurrentRow.Cells[0].Value.ToString();
@@ -471,13 +506,28 @@ namespace IEFIPrgII
             else
                 MessageBox.Show("No hay Provincias cargadas en el sistema.");
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_Provincias, outputPath, " Provincias ");
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
 
         //Reporte
-        private void CrearReportePdf(DataGridView dataGridView, string outputPath)
+        private void CrearReportePdf(DataGridView dataGridView, string outputPath, string titulo)
         {
             PdfWriter writer = new PdfWriter(outputPath);
             PdfDocument pdf = new PdfDocument(writer);
             Document doc = new Document(pdf);
+
+            Paragraph title = new Paragraph(titulo);
+            title.SetFontSize(16f).SetFontColor(ColorConstants.BLUE).SetTextAlignment(TextAlignment.CENTER);
+            doc.Add(title);
 
             // Crea la tabla con las columnas que tenga el dataGridView
             iText.Layout.Element.Table pdfTable = new iText.Layout.Element.Table(dataGridView.Columns.Count);
@@ -612,7 +662,6 @@ namespace IEFIPrgII
 
             return true; // Devuelve true si ambos campos solo contienen números.
         }
-
         private bool MontoCuotaNoCaracteres()
         {
             TextBox[] campos = { txt_MontoMes, txt_MontoCuota };
@@ -641,49 +690,6 @@ namespace IEFIPrgII
 
             return true; // Devuelve true si todos los caracteres son numéricos.
         }
-        private void btn_ReporteSocios_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Descargas|*.pdf";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string outputPath = saveFileDialog.FileName;
-                CrearReportePdf(dgv_Socios, outputPath);
-                MessageBox.Show("Reporte generado exitosamente!");
-            }
-        }
-        private void btn_ReporteCuotas_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF Files|*.pdf";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string outputPath = saveFileDialog.FileName;
-                CrearReportePdf(dgv_CuotasSociales, outputPath);
-                MessageBox.Show("Reporte generado exitosamente!");
-            }
-        }
-        private void btn_ReporteBarrios_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF Files|*.pdf";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string outputPath = saveFileDialog.FileName;
-                CrearReportePdf(dgv_Barrios, outputPath);
-                MessageBox.Show("Reporte generado exitosamente!");
-            }
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF Files|*.pdf";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string outputPath = saveFileDialog.FileName;
-                CrearReportePdf(dgv_Provincias, outputPath);
-                MessageBox.Show("Reporte generado exitosamente!");
-            }
-        }       
+        
     }
 }
