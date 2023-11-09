@@ -8,8 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using CapaNegocio;
 using Entity;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 
 namespace IEFIPrgII
 {
@@ -19,7 +23,6 @@ namespace IEFIPrgII
         NegCuotaSocial objNegCuotaSocial = new NegCuotaSocial();
         NegBarrio objNegBarrio = new NegBarrio();
         NegProvincia objProvincia = new NegProvincia();
-
 
         public FormSocios()
         {
@@ -136,7 +139,7 @@ namespace IEFIPrgII
 
             string codigoSocio = txt_Socio_SocioCod.Text;
 
-            if (SociosCamposNoVacios())
+            if (SociosCamposNoVacios() && MontoNoCaracteres())
             {
                 if (objNegSocio.ExisteCodigoSocio(codigoSocio))
                 {
@@ -160,7 +163,7 @@ namespace IEFIPrgII
                     {
                         MessageBox.Show("Socio Instanciado");
                         LLenarDGVSocios();
-                        LimpiarCuota_Social();
+                        LimpiarSocio();
                     }
                 }
             }          
@@ -199,7 +202,9 @@ namespace IEFIPrgII
                 Socio NuevoSocio = new Socio(txt_Socio_SocioCod.Text);
                 nGrabados = objNegSocio.abmSocios("Baja", NuevoSocio);
                 LLenarDGVSocios();
+                LimpiarSocio();
                 txt_Socio_SocioCod.Text = "";
+
 
             }
             else if (resultado == DialogResult.No)
@@ -213,10 +218,10 @@ namespace IEFIPrgII
             txt_NombreSoc.Text = string.Empty;
             txt_ApellidoSoc.Text = string.Empty;
             txt_DomicilioSoc.Text = string.Empty;
-            cmbBox_Sexo.Text = string.Empty;
-            cmbbox_BarrCod.Text = string.Empty;
+            cmbBox_Sexo.SelectedIndex = -1;
+            cmbbox_BarrCod.SelectedIndex = -1;
             txt_MontoMes.Text = string.Empty;
-            cmbBox_Activo.Text = string.Empty;
+            cmbBox_Activo.SelectedIndex = -1;
             txt_Socio_SocioCod.Text = string.Empty;
             DateTimePick_FecAlt.Text = string.Empty;
             DateTimePick_FecBaj.Text = string.Empty;
@@ -306,6 +311,7 @@ namespace IEFIPrgII
                 Cuota_Social NuevaCuotaSocial = new Cuota_Social(txt_Cuota_SocioCod.Text, txt_Anio.Text, cmbBox_Mes.Text);
                 nGrabados = objNegCuotaSocial.abmCuotas_Sociales("Borrar", NuevaCuotaSocial);
                 LLenarDGVCuotasSociales();
+                LimpiarCuota_Social();
                 txt_Cuota_SocioCod.Text = "";
 
             }
@@ -314,9 +320,9 @@ namespace IEFIPrgII
         {
             txt_Cuota_SocioCod.Text = string.Empty;
             txt_Anio.Text = string.Empty;
-            cmbBox_Mes.Text = string.Empty;
+            cmbBox_Mes.SelectedIndex = -1;
             txt_MontoCuota.Text = string.Empty;
-            cmbBox_Pagada .Text = string.Empty;
+            cmbBox_Pagada .SelectedIndex = -1;
         }
 
         //Barrios
@@ -389,6 +395,7 @@ namespace IEFIPrgII
                 int nGrabados = -1;
                 Barrio NuevoBarrio = new Barrio(txt_BarrCod.Text);
                 nGrabados = objNegBarrio.abmBarrios("Borrar", NuevoBarrio);
+                LimpiarBarrios();
                 LLenarDGVBarrios();
                 txt_BarrCod.Text = "";
 
@@ -398,7 +405,7 @@ namespace IEFIPrgII
         {
             txt_BarrCod.Text = string.Empty;
             txt_BarrNombre.Text = string.Empty;
-            cmbBox_Provincias.Text = string.Empty;    
+            cmbBox_Provincias.SelectedIndex = -1;    
         }
 
         //Provincias
@@ -419,6 +426,48 @@ namespace IEFIPrgII
             }
             else
                 MessageBox.Show("No hay Provincias cargadas en el sistema.");
+        }
+
+        //Reporte
+        private void CrearReportePdf(DataGridView dataGridView, string outputPath)
+        {
+            PdfWriter writer = new PdfWriter(outputPath);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document doc = new Document(pdf);
+
+            // Crea la tabla con las columnas que tenga el dataGridView
+            iText.Layout.Element.Table pdfTable = new iText.Layout.Element.Table(dataGridView.Columns.Count);
+
+            // Añade titulos
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                pdfTable.AddCell(new Cell().Add(new Paragraph(column.HeaderText)));
+            }
+
+
+            // Añade los datos del DataGridView
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    // Valida si es nulo
+                    if (cell != null && cell.Value != null)
+                    {
+                        pdfTable.AddCell(new Cell().Add(new Paragraph(cell.Value.ToString())));
+                    }
+                    else
+                    {
+                        // En caso de que sea null
+                        pdfTable.AddCell(new Cell().Add(new Paragraph("")));
+                    }
+                }
+            }
+
+            pdfTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+            // Añade la tabla al documento
+            doc.Add(pdfTable);
+
+            doc.Close();
         }
 
         //Validaciones
@@ -502,6 +551,81 @@ namespace IEFIPrgII
             }
 
             return true; // Todos los campos están completos, la validación pasa.
+        }
+        private bool MontoNoCaracteres()
+        {
+            TextBox[] campos = { txt_MontoMes };
+
+            foreach (TextBox campo in campos)
+            {
+                if (!EsNumero(campo.Text))
+                {
+                    MessageBox.Show(this, "Por favor, numeros en el monto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false; // Devuelve false si al menos uno de los campos contiene caracteres no numéricos.
+                }
+            }
+
+            return true; // Devuelve true si ambos campos solo contienen números.
+        }
+        private bool EsNumero(string texto)
+        {
+            foreach (char caracter in texto)
+            {
+                if (!char.IsDigit(caracter))
+                {
+                    return false; // Devuelve false si encuentra un carácter no numérico.
+                }
+            }
+
+            return true; // Devuelve true si todos los caracteres son numéricos.
+        }
+
+        private void btn_ReporteSocios_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Descargas|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_Socios, outputPath);
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
+
+        private void btn_ReporteCuotas_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_CuotasSociales, outputPath);
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
+
+        private void btn_ReporteBarrios_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_Barrios, outputPath);
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgv_Provincias, outputPath);
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
         }
     }
 }
